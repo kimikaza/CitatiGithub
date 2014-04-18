@@ -12,11 +12,9 @@
 
 #import <CoreData/CoreData.h>
 
-@interface CHRMasterViewController : UITableViewController <NSFetchedResultsControllerDelegate>
+@interface CHRMasterViewController : UIViewController <UIActionSheetDelegate,UICollectionViewDataSource, UICollectionViewDelegate, UIGestureRecognizerDelegate>
 
-@property (strong, nonatomic) CHRDetailViewController *detailViewController;
-
-@property (strong, nonatomic) NSFetchedResultsController *fetchedResultsController;
 @property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;
+@property  BOOL *svi;
 
 @end

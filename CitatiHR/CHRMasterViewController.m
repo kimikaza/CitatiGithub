@@ -9,9 +9,23 @@
 #import "CHRMasterViewController.h"
 
 #import "CHRDetailViewController.h"
+#import "ECSlidingViewController.h"
+#import "UIViewController+ECSlidingViewController.h"
+#import "CHRAppDelegate.h"
+#import "CHRCitatCell.h"
 
-@interface CHRMasterViewController ()
-- (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath;
+@interface CHRMasterViewController (){
+    
+    NSMutableArray *citati;
+    
+    
+}
+
+@property (nonatomic, weak) IBOutlet UICollectionView *collection;
+
+
+
+
 @end
 
 @implementation CHRMasterViewController
@@ -19,217 +33,205 @@
 - (void)awakeFromNib
 {
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
-        self.clearsSelectionOnViewWillAppear = NO;
-        self.preferredContentSize = CGSizeMake(320.0, 600.0);
+        //self.preferredContentSize = CGSizeMake(320.0, 600.0);
     }
     [super awakeFromNib];
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [self.view addGestureRecognizer:self.slidingViewController.leftPanGesture];
+    [self.view addGestureRecognizer:self.slidingViewController.rightPanGesture];
+    
+    
+
 }
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	// Do any additional setup after loading the view, typically from a nib.
-    self.navigationItem.leftBarButtonItem = self.editButtonItem;
+    
+    [self fetchContext];
+    //[self createTestData];
+    [self prepareCitati];
+    [self.collection registerNib:[UINib nibWithNibName:@"CHRCitatCell" bundle:nil] forCellWithReuseIdentifier:@"CitatCell"];
+	
 
-    UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(insertNewObject:)];
-    self.navigationItem.rightBarButtonItem = addButton;
-    self.detailViewController = (CHRDetailViewController *)[[self.splitViewController.viewControllers lastObject] topViewController];
 }
 
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
-- (void)insertNewObject:(id)sender
-{
-    NSManagedObjectContext *context = [self.fetchedResultsController managedObjectContext];
-    NSEntityDescription *entity = [[self.fetchedResultsController fetchRequest] entity];
-    NSManagedObject *newManagedObject = [NSEntityDescription insertNewObjectForEntityForName:[entity name] inManagedObjectContext:context];
     
-    // If appropriate, configure the new managed object.
-    // Normally you should use accessor methods, but using KVC here avoids the need to add a custom class to the template.
-    [newManagedObject setValue:[NSDate date] forKey:@"timeStamp"];
+}
+
+#pragma mark - UICollectionViewDelegate
+
+- (NSInteger)collectionView:(UICollectionView *)view numberOfItemsInSection:(NSInteger)section {
     
-    // Save the context.
-    NSError *error = nil;
-    if (![context save:&error]) {
-         // Replace this implementation with code to handle the error appropriately.
-         // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development. 
-        NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
-        abort();
-    }
+    return citati.count;
 }
 
-#pragma mark - Table View
+#define kImageViewTag 1 // the image view inside the collection view cell prototype is tagged with "1"
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
-{
-    return [[self.fetchedResultsController sections] count];
-}
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
-    id <NSFetchedResultsSectionInfo> sectionInfo = [self.fetchedResultsController sections][section];
-    return [sectionInfo numberOfObjects];
-}
-
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
-    [self configureCell:cell atIndexPath:indexPath];
+- (UICollectionViewCell *)collectionView:(UICollectionView *)cv cellForItemAtIndexPath:(NSIndexPath *)indexPath {
+    
+    static NSString *CellIdentifier = @"CitatCell";
+    
+    CHRCitatCell *cell = [cv dequeueReusableCellWithReuseIdentifier:CellIdentifier forIndexPath:indexPath];
+    
+    // load the asset for this cell
+    NSManagedObject *citatObject = citati[indexPath.row];
+    cell.citat.text = [citatObject valueForKey:@"text"];
+    cell.author.text = [citatObject valueForKey:@"author"];
     return cell;
 }
 
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
+    
+    
+    
+    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil
+                                                             delegate:self
+                                                    cancelButtonTitle:@"Odustani"
+                                               destructiveButtonTitle:nil
+                                                    otherButtonTitles:@"Podijeli na Facebook",@"Spremi u favorite", nil];
+    [actionSheet showInView:[UIApplication sharedApplication].keyWindow];
+    
 }
 
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
+
+
+#pragma mark - data preparation
+
+-(void)prepareCitati
 {
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        NSManagedObjectContext *context = [self.fetchedResultsController managedObjectContext];
-        [context deleteObject:[self.fetchedResultsController objectAtIndexPath:indexPath]];
+    NSFetchRequest *fetchRequest = [NSFetchRequest fetchRequestWithEntityName:@"Citation"];
+    NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"timeStamp" ascending:YES];
+    [fetchRequest setSortDescriptors:@[sortDescriptor]];
+    
+    citati = [[_managedObjectContext executeFetchRequest:fetchRequest error:nil] mutableCopy];
+    
+}
+
+
+#pragma mark - DB methods
+
+- (void) fetchContext{
+    
+    CHRAppDelegate *appDelegate = (CHRAppDelegate *) [[UIApplication sharedApplication] delegate];
+    self.managedObjectContext = appDelegate.managedObjectContext;
+    
+}
+
+- (void)saveContext
+{
+    CHRAppDelegate *appDelegate = (CHRAppDelegate *) [[UIApplication sharedApplication] delegate];
+    [appDelegate saveContext];
+    
+}
+
+
+#pragma mark - Test Data
+
+- (void)createTestData
+{
+    if(![self fetchCitation]){
         
-        NSError *error = nil;
-        if (![context save:&error]) {
-             // Replace this implementation with code to handle the error appropriately.
-             // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development. 
-            NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
-            abort();
+        [self staviCitat];
+    }
+}
+
+- (BOOL) fetchCitation{
+	
+    
+    NSFetchRequest *fetchRequest = [NSFetchRequest fetchRequestWithEntityName:@"Citation"];
+	   
+    NSError *error;
+    citati = [[_managedObjectContext executeFetchRequest:fetchRequest error:&error] mutableCopy];
+    
+
+    if(citati.count == 0)
+        return NO;
+    else
+        return YES;
+    
+}
+
+
+- (void)staviCitat
+{
+    NSArray *tematike=@[@"Ambicija", @"Bog-Religija-Vjera", @"Cast", @"Cinizam", @"Diktatura-Tiranija", @"Egozam", @"Glupost", @"Filozofija", @"Jezik", @"Karakter", @"Ljepota", @"Mir", @"Um-Razum", @"Umjetnost", @"Zakon",@"Zlo"];
+    
+    NSArray *tekstCitata=@[@"Planovi na papiru, uvijek ostaju tek dobre nakane.", @"Obuzdaj gnjev, on zapovijeda, ako se ne pokorava.", @"Čuvaj se pljuvanja protiv vjera.", @"Objekt nikada nije potpuno neovisan o subjektu koji ga promatra.",@"Blagodat je jedan od najsuptilnijih znakova otmjenog i plemenitog čovjeka.", @"Čast je vanjska savjest, a savjest je unutarnja čast.", @"Sreću koju tražimo samo za sebe, nikada nećemo pronaći.",@"Nikada potpuno ne vjeruj novom prijatelju ni starom neprijatelju.",@"Ali ja postojim samo kad sam s drugim, sam nisam ništa.",@"Oni koji mogu pobijediti u ratu rijetko su dobri u stvaranju mira, a oni koji su uspješni mirotvorci, nikada ne bi pobijedili u ratu.",@"Onog dana kada znanost počne proučavati ne duhovne pojave, u deset godina napredovati će više nego u ranijim stoljećima svoje povijesti.",@"Tko započinje molitvu mora zamišljati da na radost svojega Gospodina sadi biljke u vrlo neplodnu tlu prepunom korova.",@"Ako želite da se nešto dobro napravi, napravite to sami.",@"U okolnostima mira, ratnički čovjek navaljuje na sama sebe.",@"Vjerovati u sve, sumnjati u sve; oba načina života čuvaju od razmišljanja.",@"Čelnik koji donosi mnogo odluka istodobno je lijen i nedjelotvoran."];
+    NSArray *autorCitata=@[@"Peter Drucker", @"Quintus Horatius Flaccus Horacije",@"Friedrich Wilhelm Nietzsche",@"Werner Karl Heisenberg",@"Sara Miles",@"Arthur Schopenhauer",@"Thomas Merton",@"James Kelly",@"Karl Jaspers",@"Winston Churchill", @"Nikola Tesla",@"Sv. Tereza Avilska",@"Napoleon Bonaparte",@"Friedrich Wilhelm Nietzsche",@"Alfred Korzybinski",@"Peter Drucker"];
+    
+   
+    
+        for(int i=0; i<tekstCitata.count; i++)
+        
+        {
+            NSManagedObject *theme = [NSEntityDescription insertNewObjectForEntityForName:@"Theme" inManagedObjectContext:_managedObjectContext];
+            
+            [theme setValue:tematike[i] forKey:@"text"];
+            NSMutableSet *citations = [[NSMutableSet alloc] init];
+            [theme setValue:citations forKey:@"citations"];
+            
+            NSManagedObject *citat = [NSEntityDescription insertNewObjectForEntityForName:@"Citation" inManagedObjectContext:_managedObjectContext];
+            
+            [citat setValue:[tekstCitata objectAtIndex:i] forKey:@"text"];
+            [citat setValue:[autorCitata objectAtIndex:i] forKey:@"author"];
+            [citat setValue:[NSNumber numberWithBool:NO] forKey:@"favourite"];
+            [citat setValue:theme forKey:@"theme"];
+            
+            [citations addObject:citat];
+            
         }
-    }   
-}
-
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // The table view should not be re-orderable.
-    return NO;
-}
-
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
-        NSManagedObject *object = [[self fetchedResultsController] objectAtIndexPath:indexPath];
-        self.detailViewController.detailItem = object;
-    }
-}
-
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    if ([[segue identifier] isEqualToString:@"showDetail"]) {
-        NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
-        NSManagedObject *object = [[self fetchedResultsController] objectAtIndexPath:indexPath];
-        [[segue destinationViewController] setDetailItem:object];
-    }
-}
-
-#pragma mark - Fetched results controller
-
-- (NSFetchedResultsController *)fetchedResultsController
-{
-    if (_fetchedResultsController != nil) {
-        return _fetchedResultsController;
-    }
     
-    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-    // Edit the entity name as appropriate.
-    NSEntityDescription *entity = [NSEntityDescription entityForName:@"Event" inManagedObjectContext:self.managedObjectContext];
-    [fetchRequest setEntity:entity];
-    
-    // Set the batch size to a suitable number.
-    [fetchRequest setFetchBatchSize:20];
-    
-    // Edit the sort key as appropriate.
-    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"timeStamp" ascending:NO];
-    NSArray *sortDescriptors = @[sortDescriptor];
-    
-    [fetchRequest setSortDescriptors:sortDescriptors];
-    
-    // Edit the section name key path and cache name if appropriate.
-    // nil for section name key path means "no sections".
-    NSFetchedResultsController *aFetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest managedObjectContext:self.managedObjectContext sectionNameKeyPath:nil cacheName:@"Master"];
-    aFetchedResultsController.delegate = self;
-    self.fetchedResultsController = aFetchedResultsController;
-    
-	NSError *error = nil;
-	if (![self.fetchedResultsController performFetch:&error]) {
-	     // Replace this implementation with code to handle the error appropriately.
-	     // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development. 
-	    NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
-	    abort();
-	}
-    
-    return _fetchedResultsController;
-}    
-
-- (void)controllerWillChangeContent:(NSFetchedResultsController *)controller
-{
-    [self.tableView beginUpdates];
-}
-
-- (void)controller:(NSFetchedResultsController *)controller didChangeSection:(id <NSFetchedResultsSectionInfo>)sectionInfo
-           atIndex:(NSUInteger)sectionIndex forChangeType:(NSFetchedResultsChangeType)type
-{
-    switch(type) {
-        case NSFetchedResultsChangeInsert:
-            [self.tableView insertSections:[NSIndexSet indexSetWithIndex:sectionIndex] withRowAnimation:UITableViewRowAnimationFade];
-            break;
             
-        case NSFetchedResultsChangeDelete:
-            [self.tableView deleteSections:[NSIndexSet indexSetWithIndex:sectionIndex] withRowAnimation:UITableViewRowAnimationFade];
-            break;
-    }
-}
-
-- (void)controller:(NSFetchedResultsController *)controller didChangeObject:(id)anObject
-       atIndexPath:(NSIndexPath *)indexPath forChangeType:(NSFetchedResultsChangeType)type
-      newIndexPath:(NSIndexPath *)newIndexPath
-{
-    UITableView *tableView = self.tableView;
     
-    switch(type) {
-        case NSFetchedResultsChangeInsert:
-            [tableView insertRowsAtIndexPaths:@[newIndexPath] withRowAnimation:UITableViewRowAnimationFade];
-            break;
+    [self saveContext];
+    [self fetchCitation];
+
+   }
+
+
+
+
+-(void) actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    
+    
+    
+    switch(buttonIndex) {
+        case 1:{
             
-        case NSFetchedResultsChangeDelete:
-            [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-            break;
+
+    
+            NSArray *indexPaths = [self.collection indexPathsForSelectedItems];
+            NSManagedObject *selectedCitation = [citati objectAtIndex:[indexPaths[0] row]];
+            NSLog(@"1 clickedButtonAtIndex() : indexPath = %d", [indexPaths[0] row]);
+    
             
-        case NSFetchedResultsChangeUpdate:
-            [self configureCell:[tableView cellForRowAtIndexPath:indexPath] atIndexPath:indexPath];
-            break;
-            
-        case NSFetchedResultsChangeMove:
-            [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-            [tableView insertRowsAtIndexPaths:@[newIndexPath] withRowAnimation:UITableViewRowAnimationFade];
-            break;
+            [selectedCitation setValue:[NSNumber numberWithBool:YES] forKey:@"favourite"];
+    
+            CHRAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
+            [appDelegate saveContext];
+    
+            [self.collection reloadData];
+    
+            return;
+        }
     }
+
+    
+    
 }
 
-- (void)controllerDidChangeContent:(NSFetchedResultsController *)controller
-{
-    [self.tableView endUpdates];
-}
 
-/*
-// Implementing the above methods to update the table view in response to individual changes may have performance implications if a large number of changes are made simultaneously. If this proves to be an issue, you can instead just implement controllerDidChangeContent: which notifies the delegate that all section and object changes have been processed. 
- 
- - (void)controllerDidChangeContent:(NSFetchedResultsController *)controller
-{
-    // In the simplest, most efficient, case, reload the table view.
-    [self.tableView reloadData];
-}
- */
 
-- (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath
-{
-    NSManagedObject *object = [self.fetchedResultsController objectAtIndexPath:indexPath];
-    cell.textLabel.text = [[object valueForKey:@"timeStamp"] description];
-}
+
 
 @end

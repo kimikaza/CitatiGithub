@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4C8BE36918DDF66D0032C7AA /* CHRCitatCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C8BE36818DDF66D0032C7AA /* CHRCitatCell.m */; };
+		4C8BE36B18DDF6C20032C7AA /* CHRCitatCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4C8BE36A18DDF6C20032C7AA /* CHRCitatCell.xib */; };
+		4C8BE36E18DE0A7A0032C7AA /* CHRScreenEdgePanGestureRecognizer.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C8BE36D18DE0A7A0032C7AA /* CHRScreenEdgePanGestureRecognizer.m */; };
 		4CAE82D318B8F5E10063675D /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4CAE82D218B8F5E10063675D /* Foundation.framework */; };
 		4CAE82D518B8F5E10063675D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4CAE82D418B8F5E10063675D /* CoreGraphics.framework */; };
 		4CAE82D718B8F5E10063675D /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4CAE82D618B8F5E10063675D /* UIKit.framework */; };
@@ -26,6 +29,19 @@
 		4CAE830018B8F5E10063675D /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4CAE82D818B8F5E10063675D /* CoreData.framework */; };
 		4CAE830818B8F5E10063675D /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4CAE830618B8F5E10063675D /* InfoPlist.strings */; };
 		4CAE830A18B8F5E10063675D /* CitatiHRTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CAE830918B8F5E10063675D /* CitatiHRTests.m */; };
+		4CAE831418B8FF020063675D /* CHRMasterViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4CAE831318B8FF020063675D /* CHRMasterViewController.xib */; };
+		4CAE832418B90A160063675D /* ECPercentDrivenInteractiveTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CAE831818B90A160063675D /* ECPercentDrivenInteractiveTransition.m */; };
+		4CAE832518B90A160063675D /* ECSlidingAnimationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CAE831A18B90A160063675D /* ECSlidingAnimationController.m */; };
+		4CAE832618B90A160063675D /* ECSlidingInteractiveTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CAE831D18B90A160063675D /* ECSlidingInteractiveTransition.m */; };
+		4CAE832718B90A160063675D /* ECSlidingSegue.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CAE831F18B90A160063675D /* ECSlidingSegue.m */; };
+		4CAE832818B90A160063675D /* ECSlidingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CAE832118B90A160063675D /* ECSlidingViewController.m */; };
+		4CAE832918B90A160063675D /* UIViewController+ECSlidingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CAE832318B90A160063675D /* UIViewController+ECSlidingViewController.m */; };
+		4CAE832D18B911F10063675D /* CHRMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CAE832B18B911F10063675D /* CHRMenuViewController.m */; };
+		4CAE832E18B911F10063675D /* CHRMenuViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4CAE832C18B911F10063675D /* CHRMenuViewController.xib */; };
+		4CDC54F418F5BCC500AAFD6E /* ViewFavouriteController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CDC54F218F5BCC500AAFD6E /* ViewFavouriteController.m */; };
+		4CDC54F518F5BCC500AAFD6E /* ViewFavouriteController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4CDC54F318F5BCC500AAFD6E /* ViewFavouriteController.xib */; };
+		4CEAC05818E21B890041F170 /* CHRThemeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CEAC05618E21B890041F170 /* CHRThemeViewController.m */; };
+		4CEAC05918E21B890041F170 /* CHRThemeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4CEAC05718E21B890041F170 /* CHRThemeViewController.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -39,6 +55,11 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		4C8BE36718DDF66D0032C7AA /* CHRCitatCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHRCitatCell.h; sourceTree = "<group>"; };
+		4C8BE36818DDF66D0032C7AA /* CHRCitatCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHRCitatCell.m; sourceTree = "<group>"; };
+		4C8BE36A18DDF6C20032C7AA /* CHRCitatCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CHRCitatCell.xib; sourceTree = "<group>"; };
+		4C8BE36C18DE0A7A0032C7AA /* CHRScreenEdgePanGestureRecognizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHRScreenEdgePanGestureRecognizer.h; sourceTree = "<group>"; };
+		4C8BE36D18DE0A7A0032C7AA /* CHRScreenEdgePanGestureRecognizer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHRScreenEdgePanGestureRecognizer.m; sourceTree = "<group>"; };
 		4CAE82CF18B8F5E10063675D /* CitatiHR.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CitatiHR.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4CAE82D218B8F5E10063675D /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		4CAE82D418B8F5E10063675D /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -63,6 +84,29 @@
 		4CAE830518B8F5E10063675D /* CitatiHRTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "CitatiHRTests-Info.plist"; sourceTree = "<group>"; };
 		4CAE830718B8F5E10063675D /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		4CAE830918B8F5E10063675D /* CitatiHRTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CitatiHRTests.m; sourceTree = "<group>"; };
+		4CAE831318B8FF020063675D /* CHRMasterViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CHRMasterViewController.xib; sourceTree = "<group>"; };
+		4CAE831718B90A160063675D /* ECPercentDrivenInteractiveTransition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECPercentDrivenInteractiveTransition.h; sourceTree = "<group>"; };
+		4CAE831818B90A160063675D /* ECPercentDrivenInteractiveTransition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECPercentDrivenInteractiveTransition.m; sourceTree = "<group>"; };
+		4CAE831918B90A160063675D /* ECSlidingAnimationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECSlidingAnimationController.h; sourceTree = "<group>"; };
+		4CAE831A18B90A160063675D /* ECSlidingAnimationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECSlidingAnimationController.m; sourceTree = "<group>"; };
+		4CAE831B18B90A160063675D /* ECSlidingConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECSlidingConstants.h; sourceTree = "<group>"; };
+		4CAE831C18B90A160063675D /* ECSlidingInteractiveTransition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECSlidingInteractiveTransition.h; sourceTree = "<group>"; };
+		4CAE831D18B90A160063675D /* ECSlidingInteractiveTransition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECSlidingInteractiveTransition.m; sourceTree = "<group>"; };
+		4CAE831E18B90A160063675D /* ECSlidingSegue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECSlidingSegue.h; sourceTree = "<group>"; };
+		4CAE831F18B90A160063675D /* ECSlidingSegue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECSlidingSegue.m; sourceTree = "<group>"; };
+		4CAE832018B90A160063675D /* ECSlidingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECSlidingViewController.h; sourceTree = "<group>"; };
+		4CAE832118B90A160063675D /* ECSlidingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECSlidingViewController.m; sourceTree = "<group>"; };
+		4CAE832218B90A160063675D /* UIViewController+ECSlidingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+ECSlidingViewController.h"; sourceTree = "<group>"; };
+		4CAE832318B90A160063675D /* UIViewController+ECSlidingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+ECSlidingViewController.m"; sourceTree = "<group>"; };
+		4CAE832A18B911F10063675D /* CHRMenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHRMenuViewController.h; sourceTree = "<group>"; };
+		4CAE832B18B911F10063675D /* CHRMenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHRMenuViewController.m; sourceTree = "<group>"; };
+		4CAE832C18B911F10063675D /* CHRMenuViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CHRMenuViewController.xib; sourceTree = "<group>"; };
+		4CDC54F118F5BCC500AAFD6E /* ViewFavouriteController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ViewFavouriteController.h; path = ../ViewFavouriteController.h; sourceTree = "<group>"; };
+		4CDC54F218F5BCC500AAFD6E /* ViewFavouriteController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ViewFavouriteController.m; path = ../ViewFavouriteController.m; sourceTree = "<group>"; };
+		4CDC54F318F5BCC500AAFD6E /* ViewFavouriteController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = ViewFavouriteController.xib; path = ../ViewFavouriteController.xib; sourceTree = "<group>"; };
+		4CEAC05518E21B890041F170 /* CHRThemeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHRThemeViewController.h; sourceTree = "<group>"; };
+		4CEAC05618E21B890041F170 /* CHRThemeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHRThemeViewController.m; sourceTree = "<group>"; };
+		4CEAC05718E21B890041F170 /* CHRThemeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CHRThemeViewController.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -94,6 +138,7 @@
 		4CAE82C618B8F5E10063675D = {
 			isa = PBXGroup;
 			children = (
+				4CAE831518B90A160063675D /* 3rd Party */,
 				4CAE82DA18B8F5E10063675D /* CitatiHR */,
 				4CAE830318B8F5E10063675D /* CitatiHRTests */,
 				4CAE82D118B8F5E10063675D /* Frameworks */,
@@ -125,12 +170,27 @@
 		4CAE82DA18B8F5E10063675D /* CitatiHR */ = {
 			isa = PBXGroup;
 			children = (
+				4CDC54F118F5BCC500AAFD6E /* ViewFavouriteController.h */,
+				4CDC54F218F5BCC500AAFD6E /* ViewFavouriteController.m */,
+				4CDC54F318F5BCC500AAFD6E /* ViewFavouriteController.xib */,
+				4C8BE36C18DE0A7A0032C7AA /* CHRScreenEdgePanGestureRecognizer.h */,
+				4C8BE36D18DE0A7A0032C7AA /* CHRScreenEdgePanGestureRecognizer.m */,
+				4C8BE36718DDF66D0032C7AA /* CHRCitatCell.h */,
+				4C8BE36818DDF66D0032C7AA /* CHRCitatCell.m */,
+				4C8BE36A18DDF6C20032C7AA /* CHRCitatCell.xib */,
 				4CAE82E318B8F5E10063675D /* CHRAppDelegate.h */,
 				4CAE82E418B8F5E10063675D /* CHRAppDelegate.m */,
 				4CAE82E618B8F5E10063675D /* Main_iPhone.storyboard */,
 				4CAE82E918B8F5E10063675D /* Main_iPad.storyboard */,
 				4CAE82EF18B8F5E10063675D /* CHRMasterViewController.h */,
 				4CAE82F018B8F5E10063675D /* CHRMasterViewController.m */,
+				4CAE831318B8FF020063675D /* CHRMasterViewController.xib */,
+				4CAE832A18B911F10063675D /* CHRMenuViewController.h */,
+				4CAE832B18B911F10063675D /* CHRMenuViewController.m */,
+				4CAE832C18B911F10063675D /* CHRMenuViewController.xib */,
+				4CEAC05518E21B890041F170 /* CHRThemeViewController.h */,
+				4CEAC05618E21B890041F170 /* CHRThemeViewController.m */,
+				4CEAC05718E21B890041F170 /* CHRThemeViewController.xib */,
 				4CAE82F218B8F5E10063675D /* CHRDetailViewController.h */,
 				4CAE82F318B8F5E10063675D /* CHRDetailViewController.m */,
 				4CAE82F518B8F5E10063675D /* Images.xcassets */,
@@ -167,6 +227,35 @@
 				4CAE830618B8F5E10063675D /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		4CAE831518B90A160063675D /* 3rd Party */ = {
+			isa = PBXGroup;
+			children = (
+				4CAE831618B90A160063675D /* ECSlidingViewController */,
+			);
+			name = "3rd Party";
+			path = "../../Documents/iOSApps/BillsAppXIB/BillsAppXIB/3rd Party";
+			sourceTree = "<group>";
+		};
+		4CAE831618B90A160063675D /* ECSlidingViewController */ = {
+			isa = PBXGroup;
+			children = (
+				4CAE831718B90A160063675D /* ECPercentDrivenInteractiveTransition.h */,
+				4CAE831818B90A160063675D /* ECPercentDrivenInteractiveTransition.m */,
+				4CAE831918B90A160063675D /* ECSlidingAnimationController.h */,
+				4CAE831A18B90A160063675D /* ECSlidingAnimationController.m */,
+				4CAE831B18B90A160063675D /* ECSlidingConstants.h */,
+				4CAE831C18B90A160063675D /* ECSlidingInteractiveTransition.h */,
+				4CAE831D18B90A160063675D /* ECSlidingInteractiveTransition.m */,
+				4CAE831E18B90A160063675D /* ECSlidingSegue.h */,
+				4CAE831F18B90A160063675D /* ECSlidingSegue.m */,
+				4CAE832018B90A160063675D /* ECSlidingViewController.h */,
+				4CAE832118B90A160063675D /* ECSlidingViewController.m */,
+				4CAE832218B90A160063675D /* UIViewController+ECSlidingViewController.h */,
+				4CAE832318B90A160063675D /* UIViewController+ECSlidingViewController.m */,
+			);
+			path = ECSlidingViewController;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -217,6 +306,9 @@
 				LastUpgradeCheck = 0500;
 				ORGANIZATIONNAME = "Zoran Pleško";
 				TargetAttributes = {
+					4CAE82CE18B8F5E10063675D = {
+						DevelopmentTeam = F5EE7SAMA2;
+					};
 					4CAE82FA18B8F5E10063675D = {
 						TestTargetID = 4CAE82CE18B8F5E10063675D;
 					};
@@ -246,10 +338,15 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4CDC54F518F5BCC500AAFD6E /* ViewFavouriteController.xib in Resources */,
 				4CAE82EB18B8F5E10063675D /* Main_iPad.storyboard in Resources */,
 				4CAE82F618B8F5E10063675D /* Images.xcassets in Resources */,
+				4CEAC05918E21B890041F170 /* CHRThemeViewController.xib in Resources */,
+				4C8BE36B18DDF6C20032C7AA /* CHRCitatCell.xib in Resources */,
 				4CAE82E818B8F5E10063675D /* Main_iPhone.storyboard in Resources */,
+				4CAE832E18B911F10063675D /* CHRMenuViewController.xib in Resources */,
 				4CAE82DF18B8F5E10063675D /* InfoPlist.strings in Resources */,
+				4CAE831418B8FF020063675D /* CHRMasterViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -269,10 +366,21 @@
 			buildActionMask = 2147483647;
 			files = (
 				4CAE82F118B8F5E10063675D /* CHRMasterViewController.m in Sources */,
+				4C8BE36918DDF66D0032C7AA /* CHRCitatCell.m in Sources */,
+				4CAE832818B90A160063675D /* ECSlidingViewController.m in Sources */,
+				4CEAC05818E21B890041F170 /* CHRThemeViewController.m in Sources */,
 				4CAE82E518B8F5E10063675D /* CHRAppDelegate.m in Sources */,
+				4CAE832718B90A160063675D /* ECSlidingSegue.m in Sources */,
 				4CAE82E118B8F5E10063675D /* main.m in Sources */,
+				4C8BE36E18DE0A7A0032C7AA /* CHRScreenEdgePanGestureRecognizer.m in Sources */,
+				4CDC54F418F5BCC500AAFD6E /* ViewFavouriteController.m in Sources */,
 				4CAE82EE18B8F5E10063675D /* CitatiHR.xcdatamodeld in Sources */,
+				4CAE832618B90A160063675D /* ECSlidingInteractiveTransition.m in Sources */,
+				4CAE832518B90A160063675D /* ECSlidingAnimationController.m in Sources */,
 				4CAE82F418B8F5E10063675D /* CHRDetailViewController.m in Sources */,
+				4CAE832418B90A160063675D /* ECPercentDrivenInteractiveTransition.m in Sources */,
+				4CAE832918B90A160063675D /* UIViewController+ECSlidingViewController.m in Sources */,
+				4CAE832D18B911F10063675D /* CHRMenuViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -409,10 +517,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "CitatiHR/CitatiHR-Prefix.pch";
 				INFOPLIST_FILE = "CitatiHR/CitatiHR-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -422,10 +533,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "CitatiHR/CitatiHR-Prefix.pch";
 				INFOPLIST_FILE = "CitatiHR/CitatiHR-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
@@ -491,6 +605,7 @@
 				4CAE830F18B8F5E10063675D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		4CAE831018B8F5E10063675D /* Build configuration list for PBXNativeTarget "CitatiHRTests" */ = {
 			isa = XCConfigurationList;
@@ -499,6 +614,7 @@
 				4CAE831218B8F5E10063675D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 

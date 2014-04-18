@@ -10,6 +10,9 @@
 
 #import "CHRMasterViewController.h"
 
+#import "ECSlidingViewController.h"
+#import "CHRMenuViewController.h"
+
 @implementation CHRAppDelegate
 
 @synthesize managedObjectContext = _managedObjectContext;
@@ -18,6 +21,7 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
         UISplitViewController *splitViewController = (UISplitViewController *)self.window.rootViewController;
@@ -28,10 +32,17 @@
         CHRMasterViewController *controller = (CHRMasterViewController *)masterNavigationController.topViewController;
         controller.managedObjectContext = self.managedObjectContext;
     } else {
-        UINavigationController *navigationController = (UINavigationController *)self.window.rootViewController;
-        CHRMasterViewController *controller = (CHRMasterViewController *)navigationController.topViewController;
+        CHRMasterViewController *controller = [[CHRMasterViewController alloc] init];
+        [controller setSvi:YES];
+        CHRMenuViewController *menuController = [[CHRMenuViewController alloc] init];
+        ECSlidingViewController *slidingController = [ECSlidingViewController slidingWithTopViewController:controller];
+        [slidingController setUnderLeftViewController:menuController];
+
+        self.window.rootViewController = slidingController;
+        
         controller.managedObjectContext = self.managedObjectContext;
     }
+    [self.window makeKeyAndVisible];
     return YES;
 }
 							
