@@ -70,6 +70,7 @@
 - (IBAction)citationButtonPressed:(id)sender
 {
     CHRMasterViewController *controller = [[CHRMasterViewController alloc] init];
+    [controller setSvi:YES];
     //CHRMenuViewController *menuController = [[CHRMenuViewController alloc] init];
     [self.slidingViewController setTopViewController:controller];
     //[self.slidingViewController setUnderLeftViewController:menuController];
@@ -80,7 +81,8 @@
 
 - (IBAction)favouriteButtonPressed:(id)sender
 {
-    ViewFavouriteController *controller = [[ViewFavouriteController alloc] init];
+    CHRMasterViewController *controller = [[CHRMasterViewController alloc] init];
+    [controller setSvi:NO];
     //CHRMenuViewController *menuController = [[CHRMenuViewController alloc] init];
     [self.slidingViewController setTopViewController:controller];
     //[self.slidingViewController setUnderLeftViewController:menuController];

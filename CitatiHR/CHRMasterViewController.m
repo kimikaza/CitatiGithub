@@ -149,9 +149,13 @@
     
     NSFetchRequest *fetchRequest = [NSFetchRequest fetchRequestWithEntityName:@"Citation"];
 	   
+    
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"favourite = %@", [NSNumber numberWithBool:YES]];
+    if (!self.svi) {
+    [fetchRequest setPredicate:predicate];
+    }
     NSError *error;
     citati = [[_managedObjectContext executeFetchRequest:fetchRequest error:&error] mutableCopy];
-    
 
     if(citati.count == 0)
         return NO;
