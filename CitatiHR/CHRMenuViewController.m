@@ -11,7 +11,7 @@
 #import "CHRThemeViewController.h"
 #import "UIViewController+ECSlidingViewController.h"
 #import "CHRMasterViewController.h"
-#import "ViewFavouriteController.h"
+
 
 
 @interface CHRMenuViewController ()
@@ -70,7 +70,8 @@
 - (IBAction)citationButtonPressed:(id)sender
 {
     CHRMasterViewController *controller = [[CHRMasterViewController alloc] init];
-    [controller setSvi:YES];
+    //[controller setValue:[NSNumber numberWithBool:YES] forKey:@"svi"];
+    controller.svi=YES;
     //CHRMenuViewController *menuController = [[CHRMenuViewController alloc] init];
     [self.slidingViewController setTopViewController:controller];
     //[self.slidingViewController setUnderLeftViewController:menuController];
@@ -82,7 +83,8 @@
 - (IBAction)favouriteButtonPressed:(id)sender
 {
     CHRMasterViewController *controller = [[CHRMasterViewController alloc] init];
-    [controller setSvi:NO];
+    //[controller setValue:[NSNumber numberWithBool:NO] forKey:@"svi"];
+    controller.svi=NO;
     //CHRMenuViewController *menuController = [[CHRMenuViewController alloc] init];
     [self.slidingViewController setTopViewController:controller];
     //[self.slidingViewController setUnderLeftViewController:menuController];

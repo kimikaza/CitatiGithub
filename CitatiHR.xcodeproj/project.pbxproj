@@ -32,8 +32,6 @@
 		4CAE831418B8FF020063675D /* CHRMasterViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4CAE831318B8FF020063675D /* CHRMasterViewController.xib */; };
 		4CAE832D18B911F10063675D /* CHRMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CAE832B18B911F10063675D /* CHRMenuViewController.m */; };
 		4CAE832E18B911F10063675D /* CHRMenuViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4CAE832C18B911F10063675D /* CHRMenuViewController.xib */; };
-		4CDC54F418F5BCC500AAFD6E /* ViewFavouriteController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CDC54F218F5BCC500AAFD6E /* ViewFavouriteController.m */; };
-		4CDC54F518F5BCC500AAFD6E /* ViewFavouriteController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4CDC54F318F5BCC500AAFD6E /* ViewFavouriteController.xib */; };
 		4CEAC05818E21B890041F170 /* CHRThemeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CEAC05618E21B890041F170 /* CHRThemeViewController.m */; };
 		4CEAC05918E21B890041F170 /* CHRThemeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4CEAC05718E21B890041F170 /* CHRThemeViewController.xib */; };
 		4CEEC6B91901658F004E2314 /* ECPercentDrivenInteractiveTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CEEC6AD1901658F004E2314 /* ECPercentDrivenInteractiveTransition.m */; };
@@ -88,9 +86,6 @@
 		4CAE832A18B911F10063675D /* CHRMenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHRMenuViewController.h; sourceTree = "<group>"; };
 		4CAE832B18B911F10063675D /* CHRMenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHRMenuViewController.m; sourceTree = "<group>"; };
 		4CAE832C18B911F10063675D /* CHRMenuViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CHRMenuViewController.xib; sourceTree = "<group>"; };
-		4CDC54F118F5BCC500AAFD6E /* ViewFavouriteController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ViewFavouriteController.h; path = ../ViewFavouriteController.h; sourceTree = "<group>"; };
-		4CDC54F218F5BCC500AAFD6E /* ViewFavouriteController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ViewFavouriteController.m; path = ../ViewFavouriteController.m; sourceTree = "<group>"; };
-		4CDC54F318F5BCC500AAFD6E /* ViewFavouriteController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = ViewFavouriteController.xib; path = ../ViewFavouriteController.xib; sourceTree = "<group>"; };
 		4CEAC05518E21B890041F170 /* CHRThemeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHRThemeViewController.h; sourceTree = "<group>"; };
 		4CEAC05618E21B890041F170 /* CHRThemeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHRThemeViewController.m; sourceTree = "<group>"; };
 		4CEAC05718E21B890041F170 /* CHRThemeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CHRThemeViewController.xib; sourceTree = "<group>"; };
@@ -170,9 +165,6 @@
 		4CAE82DA18B8F5E10063675D /* CitatiHR */ = {
 			isa = PBXGroup;
 			children = (
-				4CDC54F118F5BCC500AAFD6E /* ViewFavouriteController.h */,
-				4CDC54F218F5BCC500AAFD6E /* ViewFavouriteController.m */,
-				4CDC54F318F5BCC500AAFD6E /* ViewFavouriteController.xib */,
 				4C8BE36C18DE0A7A0032C7AA /* CHRScreenEdgePanGestureRecognizer.h */,
 				4C8BE36D18DE0A7A0032C7AA /* CHRScreenEdgePanGestureRecognizer.m */,
 				4C8BE36718DDF66D0032C7AA /* CHRCitatCell.h */,
@@ -339,7 +331,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4CDC54F518F5BCC500AAFD6E /* ViewFavouriteController.xib in Resources */,
 				4CAE82EB18B8F5E10063675D /* Main_iPad.storyboard in Resources */,
 				4CAE82F618B8F5E10063675D /* Images.xcassets in Resources */,
 				4CEAC05918E21B890041F170 /* CHRThemeViewController.xib in Resources */,
@@ -375,7 +366,6 @@
 				4CAE82E118B8F5E10063675D /* main.m in Sources */,
 				4C8BE36E18DE0A7A0032C7AA /* CHRScreenEdgePanGestureRecognizer.m in Sources */,
 				4CEEC6BA1901658F004E2314 /* ECSlidingAnimationController.m in Sources */,
-				4CDC54F418F5BCC500AAFD6E /* ViewFavouriteController.m in Sources */,
 				4CEEC6BC1901658F004E2314 /* ECSlidingSegue.m in Sources */,
 				4CEEC6BD1901658F004E2314 /* ECSlidingViewController.m in Sources */,
 				4CAE82EE18B8F5E10063675D /* CitatiHR.xcdatamodeld in Sources */,

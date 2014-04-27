@@ -109,6 +109,10 @@
 -(void)prepareCitati
 {
     NSFetchRequest *fetchRequest = [NSFetchRequest fetchRequestWithEntityName:@"Citation"];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"favourite = %@", [NSNumber numberWithBool:YES]];
+    if (!self.svi) {
+        [fetchRequest setPredicate:predicate];
+    }
     NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"timeStamp" ascending:YES];
     [fetchRequest setSortDescriptors:@[sortDescriptor]];
     
@@ -150,10 +154,6 @@
     NSFetchRequest *fetchRequest = [NSFetchRequest fetchRequestWithEntityName:@"Citation"];
 	   
     
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"favourite = %@", [NSNumber numberWithBool:YES]];
-    if (!self.svi) {
-    [fetchRequest setPredicate:predicate];
-    }
     NSError *error;
     citati = [[_managedObjectContext executeFetchRequest:fetchRequest error:&error] mutableCopy];
 
