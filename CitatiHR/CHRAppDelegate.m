@@ -13,14 +13,25 @@
 #import "ECSlidingViewController.h"
 #import "CHRMenuViewController.h"
 
+#import "Author.h"
+#import "Theme.h"
+#import "Citation.h"
+#import "MASDataSource.h"
+
 @implementation CHRAppDelegate
 
 @synthesize managedObjectContext = _managedObjectContext;
 @synthesize managedObjectModel = _managedObjectModel;
 @synthesize persistentStoreCoordinator = _persistentStoreCoordinator;
 
+static void uncaughtExeptionHandler(NSException *exception){
+    NSLog(@"Unhandled exception: %@", exception.description);
+    NSLog(@"Stack trace:%@",  [exception callStackSymbols].description);
+}
+
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    NSSetUncaughtExceptionHandler(&uncaughtExeptionHandler);
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
@@ -43,8 +54,114 @@
         controller.managedObjectContext = self.managedObjectContext;
     }
     [self.window makeKeyAndVisible];
+    //[self getDataFromWeb];
+    [self writeAllFontsToConsole];
     return YES;
 }
+
+- (void)writeAllFontsToConsole
+{
+    NSArray *familyNames = [UIFont familyNames];
+    for(NSString *familyName in familyNames)
+    {
+        NSArray *fontNames = [UIFont fontNamesForFamilyName:familyName];
+        for(NSString *fontName in fontNames)
+        {
+            NSLog(@"FONT NAME: %@", fontName);
+        }
+    }
+}
+
+#pragma mark - database initialization
+
+- (void)getDataFromWeb
+{
+    MASDataSource *dataSource = [MASDataSource sharedInstance];
+    //koment
+    [dataSource getAllCitationData:^(id responseObject) {
+        //
+        NSArray *posts = [responseObject objectForKey:@"posts"];
+        [self parseAllPostsIntoDatabase:posts];
+    } failure:^(NSError *error) {
+        //
+    } params:@{@"json":@"get_posts", @"orderby":@"ID", @"order":@"desc", @"count":@"5200", @"page":@"1"}];
+}
+
+- (void)parseAllPostsIntoDatabase:(NSArray *)posts
+{
+    for(NSDictionary *post in posts){
+        Citation *cit = [NSEntityDescription insertNewObjectForEntityForName:@"Citation" inManagedObjectContext:_managedObjectContext];
+        cit.favourite = [NSNumber numberWithBool:NO];
+        cit.text = [post objectForKey:@"title"];
+        cit.remote_id = [NSString stringWithFormat:@"%ld", (long)[(NSNumber *)[post objectForKey:@"id"] integerValue]];
+        cit.timeStamp = [self makeDateFromString:[post objectForKey:@"date"]];
+        
+        NSArray *remoteAuthors = [post objectForKey:@"taxonomy_autor"];
+        NSDictionary *remoteAuthor = remoteAuthors[0];
+        
+        Author *author = [self getAuthorForRemoteAuthor:remoteAuthor];
+        author.name = [remoteAuthor objectForKey:@"title"];
+        author.remote_id = [NSString stringWithFormat:@"%ld", (long)[(NSNumber *)[remoteAuthor objectForKey:@"id"] integerValue]];
+        cit.author = author;
+        [author addCitationsObject:cit];
+        
+        NSArray *remoteThemes = [post objectForKey:@"categories"];
+        NSDictionary *remoteTheme = remoteThemes[0];
+        
+        
+        Theme *theme = [self getThemeForRemoteTheme:remoteTheme];
+        theme.text = [remoteTheme objectForKey:@"title"];
+        theme.remote_id = [NSString stringWithFormat:@"%ld", (long)[(NSNumber *)[remoteTheme objectForKey:@"id"] integerValue]];
+        cit.theme = theme;
+        [theme addCitationsObject:cit];
+        
+        
+        
+    }
+    [self saveContext];
+    NSLog(@"GOTOVO");
+}
+
+- (NSDate *)makeDateFromString:(NSString *)string
+{
+    NSDateFormatter *df = [[NSDateFormatter alloc] init];
+    [df setDateFormat:@"yyyy-MM-dd hh:mm:ss"];
+    return [df dateFromString:string];
+    
+}
+
+
+-(Theme *)getThemeForRemoteTheme:(NSDictionary *)theme
+{
+    NSFetchRequest *fr = [NSFetchRequest fetchRequestWithEntityName:@"Theme"];
+    NSString *rem_id = [NSString stringWithFormat:@"%ld", (long)[(NSNumber *)[theme objectForKey:@"id"] integerValue]];
+    NSPredicate *pr = [NSPredicate predicateWithFormat:@"remote_id = %@", rem_id];
+    [fr setPredicate:pr];
+    NSArray *results = [_managedObjectContext executeFetchRequest:fr error:nil];
+    if(results.count > 0){
+        return results[0];
+    }else{
+        return [NSEntityDescription insertNewObjectForEntityForName:@"Theme" inManagedObjectContext:_managedObjectContext];
+    }
+    
+    
+}
+
+- (Author *)getAuthorForRemoteAuthor:(NSDictionary *)author
+{
+    
+    NSFetchRequest *fr = [NSFetchRequest fetchRequestWithEntityName:@"Author"];
+    NSString *rem_id = [NSString stringWithFormat:@"%ld", (long)[(NSNumber *)[author objectForKey:@"id"] integerValue]];
+    NSPredicate *pr = [NSPredicate predicateWithFormat:@"remote_id = %@", rem_id];
+    [fr setPredicate:pr];
+    NSArray *results = [_managedObjectContext executeFetchRequest:fr error:nil];
+    if(results.count > 0){
+        return results[0];
+    }else{
+        return [NSEntityDescription insertNewObjectForEntityForName:@"Author" inManagedObjectContext:_managedObjectContext];
+    }
+}
+
 							
 - (void)applicationWillResignActive:(UIApplication *)application
 {
@@ -127,6 +244,21 @@
     }
     
     NSURL *storeURL = [[self applicationDocumentsDirectory] URLByAppendingPathComponent:@"CitatiHR.sqlite"];
+    
+    //NSURL *storeURLSHM = [[self applicationDocumentsDirectory] URLByAppendingPathComponent:@"CitatiHR.sqlite-shm"];
+    
+    //NSURL *storeURLWAL = [[self applicationDocumentsDirectory] URLByAppendingPathComponent:@"CitatiHR.sqlite-wal"];
+    
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    
+    if (![fileManager fileExistsAtPath:storeURL.path]) {
+        NSString *presetDBPathInMainBundle = [[NSBundle mainBundle] pathForResource:@"CitatiHR" ofType:@"sqlite"];
+        //NSString *presetDBPathInMainBundleSHM = [[NSBundle mainBundle] pathForResource:@"CitatiHR" ofType:@"sqlite-shm"];
+        //NSString *presetDBPathInMainBundleWAL = [[NSBundle mainBundle] pathForResource:@"CitatiHR" ofType:@"sqlite-wal"];
+        [fileManager copyItemAtPath:presetDBPathInMainBundle toPath:storeURL.path error:nil];
+        //[fileManager copyItemAtPath:presetDBPathInMainBundleSHM toPath:storeURLSHM.path error:nil];
+        //[fileManager copyItemAtPath:presetDBPathInMainBundleWAL toPath:storeURLWAL.path error:nil];
+    }
     
     NSError *error = nil;
     _persistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:[self managedObjectModel]];

@@ -1,17 +1,16 @@
 //
-//  CHRThemeViewController.m
+//  CHRAuthorViewController.m
 //  CitatiHR
 //
-//  Created by Zoran Pleško on 25/03/14.
+//  Created by Zoran Pleško on 27/04/14.
 //  Copyright (c) 2014 Zoran Pleško. All rights reserved.
 //
 
-#import "CHRThemeViewController.h"
+#import "CHRAuthorViewController.h"
 #import "UIViewController+ECSlidingViewController.h"
 #import "CHRAppDelegate.h"
 
-
-@interface CHRThemeViewController ()
+@interface CHRAuthorViewController ()
 
 @property (nonatomic,strong) NSMutableDictionary *dictionary;
 @property (nonatomic,strong) NSArray *tblData;
@@ -21,27 +20,7 @@
 
 @end
 
-@implementation CHRThemeViewController
-
-- (void)awakeFromNib
-{
-    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
-        //self.preferredContentSize = CGSizeMake(320.0, 600.0);
-    }
-    [super awakeFromNib];
-}
-
-- (void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-    [self.view addGestureRecognizer:self.slidingViewController.leftPanGesture];
-    [self.view addGestureRecognizer:self.slidingViewController.rightPanGesture];
-    
-    [self fetchTheme];
-    
-}
-
-
+@implementation CHRAuthorViewController
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -52,14 +31,29 @@
     return self;
 }
 
+- (void)awakeFromNib
+{
+    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
+        //self.preferredContentSize = CGSizeMake(320.0, 600.0);
+    }
+    [super awakeFromNib];
+}
+
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [self.view addGestureRecognizer:self.slidingViewController.leftPanGesture];
+    [self.view addGestureRecognizer:self.slidingViewController.rightPanGesture];
+    
+    [self fetchAuthor];
+    
+}
+
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
-    [self fetchContext];
-    
-    [self.tableView setContentInset:UIEdgeInsetsMake(20, 0, 0, 0)];
-    
 
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
@@ -76,32 +70,20 @@
 
 #pragma mark - Table view data source
 
-//- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
-//{
-//    return _tblKeys[section];
-//}
-
-- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
-    UIView *sectionView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 22)];
-    [sectionView setBackgroundColor:[UIColor colorWithRed:0.2 green:0.6 blue:0.8 alpha:1]]; /*#3399cc*/
-    UILabel *sectionLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, 100, 22)];
-    [sectionLabel setFont:[UIFont fontWithName:@"OpenSans-Bold" size:14]];
-    sectionLabel.text = _tblKeys[section];
-    [sectionView addSubview:sectionLabel];
-    return sectionView;
+    return _tblKeys[section];
 }
+
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-
     // Return the number of sections.
     return _tblKeys.count;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    // Return the number of rows in the section.
     NSString *sect = _tblKeys[section];
     NSArray *data = [_dictionary objectForKey:sect];
     return data.count;
@@ -112,31 +94,36 @@
     return _tblKeys;
 }
 
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    
     static NSString *CellIdentifier = @"Cell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:
-        CellIdentifier];
+                CellIdentifier];
     }
     NSString *sect = _tblKeys[indexPath.section];
     NSArray *data = [_dictionary objectForKey:sect];
-
+    
     NSManagedObject *managedObject = data[indexPath.row];
-    cell.textLabel.text = [managedObject valueForKey:@"text"];
-    [cell.textLabel setFont:[UIFont fontWithName:@"OpenSans-Semibold" size:16]];
+    cell.textLabel.text = [managedObject valueForKey:@"name"];
     
     // Configure the cell...
     
     return cell;
+    
+    
 }
 
--(void) fetchTheme
+-(void) fetchAuthor
 {
-    NSFetchRequest *fetchRequest=[NSFetchRequest fetchRequestWithEntityName:@"Theme"];
+    NSFetchRequest *fetchRequest=[NSFetchRequest fetchRequestWithEntityName:@"Author"];
     
-    NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"text" ascending:YES];
+    NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES];
+    //NSSortDescriptor *sortDescriptor=[[NSSortDescriptor alloc] init];
+    
     [fetchRequest setSortDescriptors:[NSArray arrayWithObject:sortDescriptor]];
     
     _tblData = [_managedObjectContext executeFetchRequest:fetchRequest error:nil];
@@ -145,13 +132,13 @@
     
     _dictionary = [[NSMutableDictionary alloc] init];
     
-    for(NSManagedObject *author in _tblData){
-        NSString *text =[author valueForKey:@"text"];
-        NSString *key = [text substringToIndex:1];
+    for(NSManagedObject *aut in _tblData){
+        NSString *author =[aut valueForKey:@"name"];
+        NSString *key = [author substringToIndex:1];
         
         if(![_tblKeys containsObject:key]){
             [_tblKeys addObject:key];
-            NSPredicate *predicate = [NSPredicate predicateWithFormat:@"text beginswith[c] %@", key];
+            NSPredicate *predicate = [NSPredicate predicateWithFormat:@"name beginswith[c] %@", key];
             NSArray *section = [_tblData filteredArrayUsingPredicate:predicate];
             [_dictionary setObject:section forKey:key];
         }
@@ -159,7 +146,7 @@
     }
     [self.tableView reloadData];
     
-
+    
     
     
 }

@@ -42,6 +42,11 @@
 }
 */
 
+- (void)layoutSubviews{
+    [_citat setFont:[UIFont fontWithName:@"OpenSans-Bold" size:25]];
+    [_author setFont:[UIFont fontWithName:@"OpenSans-Bold" size:25]];
+}
+
 
 
 

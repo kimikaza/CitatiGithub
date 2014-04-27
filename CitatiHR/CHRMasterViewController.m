@@ -14,6 +14,10 @@
 #import "CHRAppDelegate.h"
 #import "CHRCitatCell.h"
 
+#import "Citation.h"
+#import "Author.h"
+#import "Theme.h"
+
 @interface CHRMasterViewController (){
     
     NSMutableArray *citati;
@@ -82,9 +86,9 @@
     CHRCitatCell *cell = [cv dequeueReusableCellWithReuseIdentifier:CellIdentifier forIndexPath:indexPath];
     
     // load the asset for this cell
-    NSManagedObject *citatObject = citati[indexPath.row];
-    cell.citat.text = [citatObject valueForKey:@"text"];
-    cell.author.text = [citatObject valueForKey:@"author"];
+    Citation *citatObject = citati[indexPath.row];
+    cell.citat.text = citatObject.text;
+    cell.author.text = citatObject.author.name;
     return cell;
 }
 
@@ -108,9 +112,9 @@
 
 -(void)prepareCitati
 {
-    NSFetchRequest *fetchRequest = [NSFetchRequest fetchRequestWithEntityName:@"Citation"];
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"favourite = %@", [NSNumber numberWithBool:YES]];
+    NSFetchRequest *fetchRequest = [NSFetchRequest fetchRequestWithEntityName:@"Citation"];    
     if (!self.svi) {
+        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"favourite = %@", [NSNumber numberWithBool:YES]];
         [fetchRequest setPredicate:predicate];
     }
     NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"timeStamp" ascending:YES];
@@ -216,7 +220,7 @@
     
             NSArray *indexPaths = [self.collection indexPathsForSelectedItems];
             NSManagedObject *selectedCitation = [citati objectAtIndex:[indexPaths[0] row]];
-            NSLog(@"1 clickedButtonAtIndex() : indexPath = %d", [indexPaths[0] row]);
+            NSLog(@"1 clickedButtonAtIndex() : indexPath = %ld", (long)[indexPaths[0] row]);
     
             
             [selectedCitation setValue:[NSNumber numberWithBool:YES] forKey:@"favourite"];
