@@ -32,6 +32,8 @@
 		4CAE831418B8FF020063675D /* CHRMasterViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4CAE831318B8FF020063675D /* CHRMasterViewController.xib */; };
 		4CAE832D18B911F10063675D /* CHRMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CAE832B18B911F10063675D /* CHRMenuViewController.m */; };
 		4CAE832E18B911F10063675D /* CHRMenuViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4CAE832C18B911F10063675D /* CHRMenuViewController.xib */; };
+		4CE1F9DB19152CB000A7BEA1 /* CHREmptyCitationCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CE1F9DA19152CB000A7BEA1 /* CHREmptyCitationCell.m */; };
+		4CE1F9DD19152CFF00A7BEA1 /* CHREmptyCitationCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4CE1F9DC19152CFF00A7BEA1 /* CHREmptyCitationCell.xib */; };
 		4CEAC05818E21B890041F170 /* CHRThemeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CEAC05618E21B890041F170 /* CHRThemeViewController.m */; };
 		4CEAC05918E21B890041F170 /* CHRThemeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4CEAC05718E21B890041F170 /* CHRThemeViewController.xib */; };
 		4CEEC6B91901658F004E2314 /* ECPercentDrivenInteractiveTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CEEC6AD1901658F004E2314 /* ECPercentDrivenInteractiveTransition.m */; };
@@ -123,6 +125,9 @@
 		4CAE832A18B911F10063675D /* CHRMenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHRMenuViewController.h; sourceTree = "<group>"; };
 		4CAE832B18B911F10063675D /* CHRMenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHRMenuViewController.m; sourceTree = "<group>"; };
 		4CAE832C18B911F10063675D /* CHRMenuViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CHRMenuViewController.xib; sourceTree = "<group>"; };
+		4CE1F9D919152CB000A7BEA1 /* CHREmptyCitationCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHREmptyCitationCell.h; sourceTree = "<group>"; };
+		4CE1F9DA19152CB000A7BEA1 /* CHREmptyCitationCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHREmptyCitationCell.m; sourceTree = "<group>"; };
+		4CE1F9DC19152CFF00A7BEA1 /* CHREmptyCitationCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CHREmptyCitationCell.xib; sourceTree = "<group>"; };
 		4CEAC05518E21B890041F170 /* CHRThemeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHRThemeViewController.h; sourceTree = "<group>"; };
 		4CEAC05618E21B890041F170 /* CHRThemeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHRThemeViewController.m; sourceTree = "<group>"; };
 		4CEAC05718E21B890041F170 /* CHRThemeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CHRThemeViewController.xib; sourceTree = "<group>"; };
@@ -200,7 +205,7 @@
 		4CEF18E3190D3C52003BEE73 /* OpenSans-SemiboldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-SemiboldItalic.ttf"; sourceTree = "<group>"; };
 		4CEF18EF190D458C003BEE73 /* CitatiHR.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = CitatiHR.sqlite; sourceTree = "<group>"; };
 		4CEF18F0190D458C003BEE73 /* CitatiHR.sqlite-shm */ = {isa = PBXFileReference; lastKnownFileType = file; path = "CitatiHR.sqlite-shm"; sourceTree = "<group>"; };
-		4CEF18F1190D458C003BEE73 /* CitatiHR.sqlite-wal */ = {isa = PBXFileReference; lastKnownFileType = file; path = "CitatiHR.sqlite-wal"; sourceTree = "<group>"; };
+		4CEF18F1190D458C003BEE73 /* CitatiHR.sqlite-wal */ = {isa = PBXFileReference; lastKnownFileType = text; path = "CitatiHR.sqlite-wal"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -273,6 +278,9 @@
 				4C8BE36A18DDF6C20032C7AA /* CHRCitatCell.xib */,
 				4CAE82E318B8F5E10063675D /* CHRAppDelegate.h */,
 				4CAE82E418B8F5E10063675D /* CHRAppDelegate.m */,
+				4CE1F9D919152CB000A7BEA1 /* CHREmptyCitationCell.h */,
+				4CE1F9DA19152CB000A7BEA1 /* CHREmptyCitationCell.m */,
+				4CE1F9DC19152CFF00A7BEA1 /* CHREmptyCitationCell.xib */,
 				4CAE82E618B8F5E10063675D /* Main_iPhone.storyboard */,
 				4CAE82E918B8F5E10063675D /* Main_iPad.storyboard */,
 				4CAE82EF18B8F5E10063675D /* CHRMasterViewController.h */,
@@ -552,6 +560,7 @@
 				4CEF188A190D0B4F003BEE73 /* CHRAuthorViewController.xib in Resources */,
 				4CAE82DF18B8F5E10063675D /* InfoPlist.strings in Resources */,
 				4CEF18EE190D3C52003BEE73 /* OpenSans-SemiboldItalic.ttf in Resources */,
+				4CE1F9DD19152CFF00A7BEA1 /* CHREmptyCitationCell.xib in Resources */,
 				4CAE831418B8FF020063675D /* CHRMasterViewController.xib in Resources */,
 				4CEF18F4190D458C003BEE73 /* CitatiHR.sqlite-wal in Resources */,
 				4CEF18EC190D3C52003BEE73 /* OpenSans-Regular.ttf in Resources */,
@@ -596,6 +605,7 @@
 				4CEF18D2190D2BB5003BEE73 /* UIAlertView+AFNetworking.m in Sources */,
 				4CEEC6BC1901658F004E2314 /* ECSlidingSegue.m in Sources */,
 				4CEF18BD190D2BA8003BEE73 /* AFURLSessionManager.m in Sources */,
+				4CE1F9DB19152CB000A7BEA1 /* CHREmptyCitationCell.m in Sources */,
 				4CEF18A0190D2A7D003BEE73 /* MASSessionManager.m in Sources */,
 				4CEF18B6190D2BA8003BEE73 /* AFHTTPRequestOperationManager.m in Sources */,
 				4CEF18B7190D2BA8003BEE73 /* AFHTTPSessionManager.m in Sources */,
