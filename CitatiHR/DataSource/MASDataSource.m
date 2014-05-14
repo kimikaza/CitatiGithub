@@ -48,6 +48,16 @@
                   Failure:failure];
 }
 
+- (void)getNewCitationData:(void (^)(id responseObject))success
+                   failure:(void (^)(NSError *error))failure
+                    params:(NSDictionary *)params{
+    [self callAPIWithPath:@""
+               Dictionary:params
+                   Method:MASMethodGET
+                  Success:success
+                  Failure:failure];
+}
+
 
 
 

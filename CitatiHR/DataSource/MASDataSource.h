@@ -22,6 +22,11 @@ typedef NS_ENUM(NSInteger, MASMethodType) {
 		  failure:(void (^)(NSError *error))failure
 		   params:(NSDictionary *)params;
 
+- (void)getNewCitationData:(void (^)(id responseObject))success
+                   failure:(void (^)(NSError *error))failure
+                    params:(NSDictionary *)params;
+
+
 
 @end
 

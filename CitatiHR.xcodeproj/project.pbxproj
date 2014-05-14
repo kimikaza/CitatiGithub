@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4C1093FD1923D34A00EB44A3 /* CHRBackgroundDBUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C1093FC1923D34A00EB44A3 /* CHRBackgroundDBUtil.m */; };
 		4C8BE36918DDF66D0032C7AA /* CHRCitatCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C8BE36818DDF66D0032C7AA /* CHRCitatCell.m */; };
 		4C8BE36B18DDF6C20032C7AA /* CHRCitatCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4C8BE36A18DDF6C20032C7AA /* CHRCitatCell.xib */; };
 		4C8BE36E18DE0A7A0032C7AA /* CHRScreenEdgePanGestureRecognizer.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C8BE36D18DE0A7A0032C7AA /* CHRScreenEdgePanGestureRecognizer.m */; };
@@ -92,6 +93,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		4C1093FB1923D34A00EB44A3 /* CHRBackgroundDBUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHRBackgroundDBUtil.h; sourceTree = "<group>"; };
+		4C1093FC1923D34A00EB44A3 /* CHRBackgroundDBUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHRBackgroundDBUtil.m; sourceTree = "<group>"; };
 		4C8BE36718DDF66D0032C7AA /* CHRCitatCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHRCitatCell.h; sourceTree = "<group>"; };
 		4C8BE36818DDF66D0032C7AA /* CHRCitatCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHRCitatCell.m; sourceTree = "<group>"; };
 		4C8BE36A18DDF6C20032C7AA /* CHRCitatCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CHRCitatCell.xib; sourceTree = "<group>"; };
@@ -286,6 +289,8 @@
 				4CAE82EF18B8F5E10063675D /* CHRMasterViewController.h */,
 				4CAE82F018B8F5E10063675D /* CHRMasterViewController.m */,
 				4CAE831318B8FF020063675D /* CHRMasterViewController.xib */,
+				4C1093FB1923D34A00EB44A3 /* CHRBackgroundDBUtil.h */,
+				4C1093FC1923D34A00EB44A3 /* CHRBackgroundDBUtil.m */,
 				4CAE832A18B911F10063675D /* CHRMenuViewController.h */,
 				4CAE832B18B911F10063675D /* CHRMenuViewController.m */,
 				4CAE832C18B911F10063675D /* CHRMenuViewController.xib */,
@@ -609,6 +614,7 @@
 				4CEF18A0190D2A7D003BEE73 /* MASSessionManager.m in Sources */,
 				4CEF18B6190D2BA8003BEE73 /* AFHTTPRequestOperationManager.m in Sources */,
 				4CEF18B7190D2BA8003BEE73 /* AFHTTPSessionManager.m in Sources */,
+				4C1093FD1923D34A00EB44A3 /* CHRBackgroundDBUtil.m in Sources */,
 				4CEEC6BD1901658F004E2314 /* ECSlidingViewController.m in Sources */,
 				4CEF18BC190D2BA8003BEE73 /* AFURLResponseSerialization.m in Sources */,
 				4CEF18BB190D2BA8003BEE73 /* AFURLRequestSerialization.m in Sources */,
