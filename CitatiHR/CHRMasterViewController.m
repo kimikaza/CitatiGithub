@@ -139,6 +139,19 @@
         NSPredicate *predicate = [NSPredicate predicateWithFormat:@"favourite = %@", [NSNumber numberWithBool:YES]];
         [fetchRequest setPredicate:predicate];
     }
+    else {
+        if(self.autor) {
+            NSPredicate *predicate = [NSPredicate predicateWithFormat:@"author.name = %@", self.autor];
+            [fetchRequest setPredicate:predicate];
+            }
+        if(self.tematika) {
+            NSPredicate *predicate = [NSPredicate predicateWithFormat:@"theme.text = %@", self.tematika];
+            [fetchRequest setPredicate:predicate];
+
+            }
+        //NSPredicate *predicate = [NSPredicate predicateWithFormat:@"author.name = %@ AND theme.text = %@", self.autor, self.tematika];
+
+        }
     NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"timeStamp" ascending:YES];
     [fetchRequest setSortDescriptors:@[sortDescriptor]];
     

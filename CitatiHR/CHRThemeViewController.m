@@ -9,6 +9,7 @@
 #import "CHRThemeViewController.h"
 #import "UIViewController+ECSlidingViewController.h"
 #import "CHRAppDelegate.h"
+#import "CHRMasterViewController.h"
 
 
 @interface CHRThemeViewController ()
@@ -220,7 +221,7 @@
 }
 */
 
-/*
+
 #pragma mark - Table view delegate
 
 // In a xib-based application, navigation from a table can be handled in -tableView:didSelectRowAtIndexPath:
@@ -228,14 +229,32 @@
 {
     // Navigation logic may go here, for example:
     // Create the next view controller.
-    <#DetailViewController#> *detailViewController = [[<#DetailViewController#> alloc] initWithNibName:@"<#Nib name#>" bundle:nil];
+    //<#DetailViewController#> *detailViewController = [[<#DetailViewController#> alloc] initWithNibName:@"<#Nib name#>" bundle:nil];
 
     // Pass the selected object to the new view controller.
     
     // Push the view controller.
-    [self.navigationController pushViewController:detailViewController animated:YES];
+    //[self.navigationController pushViewController:detailViewController animated:YES];
+    
+    
+    CHRMasterViewController *controller = [[CHRMasterViewController alloc] init];
+    controller.svi=YES;
+    
+    NSString *sect = _tblKeys[indexPath.section];
+    NSArray *data = [_dictionary objectForKey:sect];
+    
+    NSManagedObject *managedObject = data[indexPath.row];
+    controller.tematika = [managedObject valueForKey:@"text"];
+    
+    //[controller setValue:[NSNumber numberWithBool:NO] forKey:@"svi"];
+    //CHRMenuViewController *menuController = [[CHRMenuViewController alloc] init];
+    [self.slidingViewController setTopViewController:controller];
+    
+    //[self.slidingViewController setUnderLeftViewController:menuController];
+    //[self.slidingViewController resetTopViewAnimated:YES];
+    
 }
  
- */
+
 
 @end

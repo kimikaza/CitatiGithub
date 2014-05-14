@@ -9,6 +9,7 @@
 #import "CHRAuthorViewController.h"
 #import "UIViewController+ECSlidingViewController.h"
 #import "CHRAppDelegate.h"
+#import "CHRMasterViewController.h"
 
 @interface CHRAuthorViewController ()
 
@@ -43,8 +44,8 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    [self.view addGestureRecognizer:self.slidingViewController.leftPanGesture];
-    [self.view addGestureRecognizer:self.slidingViewController.rightPanGesture];
+    //[self.view addGestureRecognizer:self.slidingViewController.leftPanGesture];
+    //[self.view addGestureRecognizer:self.slidingViewController.rightPanGesture];
     
     [self fetchAuthor];
     
@@ -222,22 +223,42 @@
 }
 */
 
-/*
+
 #pragma mark - Table view delegate
 
 // In a xib-based application, navigation from a table can be handled in -tableView:didSelectRowAtIndexPath:
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    // Navigation logic may go here, for example:
-    // Create the next view controller.
+    /* Navigation logic may go here, for example:
+     Create the next view controller.
     <#DetailViewController#> *detailViewController = [[<#DetailViewController#> alloc] initWithNibName:@"<#Nib name#>" bundle:nil];
 
-    // Pass the selected object to the new view controller.
+    Pass the selected object to the new view controller.
     
-    // Push the view controller.
+    Push the view controller.
     [self.navigationController pushViewController:detailViewController animated:YES];
+ 
+   */
+    CHRMasterViewController *controller = [[CHRMasterViewController alloc] init];
+    controller.svi=YES;
+    
+    NSString *sect = _tblKeys[indexPath.section];
+    NSArray *data = [_dictionary objectForKey:sect];
+    
+    NSManagedObject *managedObject = data[indexPath.row];
+    controller.autor = [managedObject valueForKey:@"name"];
+    
+    //[controller setValue:[NSNumber numberWithBool:NO] forKey:@"svi"];
+    //CHRMenuViewController *menuController = [[CHRMenuViewController alloc] init];
+    [self.slidingViewController setTopViewController:controller];
+    
+    //[self.slidingViewController setUnderLeftViewController:menuController];
+    //[self.slidingViewController resetTopViewAnimated:YES];
+    
+    
+ 
 }
  
- */
+
 
 @end
