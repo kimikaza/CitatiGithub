@@ -9,9 +9,10 @@
 #import "CHRMenuViewController.h"
 #import "ECSlidingViewController.h"
 #import "CHRThemeViewController.h"
+#import "CHRAuthorViewController.h"
 #import "UIViewController+ECSlidingViewController.h"
 #import "CHRMasterViewController.h"
-#import "ViewFavouriteController.h"
+
 
 
 @interface CHRMenuViewController ()
@@ -47,6 +48,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
     // Do any additional setup after loading the view from its nib.
 }
 
@@ -54,6 +56,15 @@
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+    [self setButtonFonts];
+}
+
+- (void)setButtonFonts
+{
+    [[_theme titleLabel] setFont:[UIFont fontWithName:@"OpenSans-Semibold" size:17]];
+    [[_author titleLabel] setFont:[UIFont fontWithName:@"OpenSans-Semibold" size:17]];
+    [[_favourite titleLabel] setFont:[UIFont fontWithName:@"OpenSans-Semibold" size:17]];
+    [[_citation titleLabel] setFont:[UIFont fontWithName:@"OpenSans-Semibold" size:17]];
 }
 
 - (IBAction)themeButtonPressed:(id)sender
@@ -70,6 +81,8 @@
 - (IBAction)citationButtonPressed:(id)sender
 {
     CHRMasterViewController *controller = [[CHRMasterViewController alloc] init];
+    //[controller setValue:[NSNumber numberWithBool:YES] forKey:@"svi"];
+    controller.svi=YES;
     //CHRMenuViewController *menuController = [[CHRMenuViewController alloc] init];
     [self.slidingViewController setTopViewController:controller];
     //[self.slidingViewController setUnderLeftViewController:menuController];
@@ -80,7 +93,9 @@
 
 - (IBAction)favouriteButtonPressed:(id)sender
 {
-    ViewFavouriteController *controller = [[ViewFavouriteController alloc] init];
+    CHRMasterViewController *controller = [[CHRMasterViewController alloc] init];
+    //[controller setValue:[NSNumber numberWithBool:NO] forKey:@"svi"];
+    controller.svi=NO;
     //CHRMenuViewController *menuController = [[CHRMenuViewController alloc] init];
     [self.slidingViewController setTopViewController:controller];
     //[self.slidingViewController setUnderLeftViewController:menuController];
@@ -88,6 +103,16 @@
     
 }
 
+- (IBAction)authorButtonPressed:(id)sender
+{
+    CHRAuthorViewController *controller = [[CHRAuthorViewController alloc] init];
+    //[controller setValue:[NSNumber numberWithBool:NO] forKey:@"svi"];
+    //CHRMenuViewController *menuController = [[CHRMenuViewController alloc] init];
+    [self.slidingViewController setTopViewController:controller];
+    //[self.slidingViewController setUnderLeftViewController:menuController];
+    [self.slidingViewController resetTopViewAnimated:YES];
+    
+}
 
 
 

@@ -1,18 +1,17 @@
 //
-//  CHRThemeViewController.m
+//  CHRAuthorViewController.m
 //  CitatiHR
 //
-//  Created by Zoran Pleško on 25/03/14.
+//  Created by Zoran Pleško on 27/04/14.
 //  Copyright (c) 2014 Zoran Pleško. All rights reserved.
 //
 
-#import "CHRThemeViewController.h"
+#import "CHRAuthorViewController.h"
 #import "UIViewController+ECSlidingViewController.h"
 #import "CHRAppDelegate.h"
 #import "CHRMasterViewController.h"
 
-
-@interface CHRThemeViewController ()
+@interface CHRAuthorViewController ()
 
 @property (nonatomic,strong) NSMutableDictionary *dictionary;
 @property (nonatomic,strong) NSArray *tblData;
@@ -22,27 +21,7 @@
 
 @end
 
-@implementation CHRThemeViewController
-
-- (void)awakeFromNib
-{
-    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
-        //self.preferredContentSize = CGSizeMake(320.0, 600.0);
-    }
-    [super awakeFromNib];
-}
-
-- (void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-    [self.view addGestureRecognizer:self.slidingViewController.leftPanGesture];
-    [self.view addGestureRecognizer:self.slidingViewController.rightPanGesture];
-    
-    [self fetchTheme];
-    
-}
-
-
+@implementation CHRAuthorViewController
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -53,14 +32,32 @@
     return self;
 }
 
+- (void)awakeFromNib
+{
+    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
+        //self.preferredContentSize = CGSizeMake(320.0, 600.0);
+    }
+    [super awakeFromNib];
+}
+
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    //[self.view addGestureRecognizer:self.slidingViewController.leftPanGesture];
+    //[self.view addGestureRecognizer:self.slidingViewController.rightPanGesture];
+    
+    [self fetchAuthor];
+    
+}
+
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
     [self fetchContext];
-    
     [self.tableView setContentInset:UIEdgeInsetsMake(20, 0, 0, 0)];
-    
+
 
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
@@ -79,7 +76,7 @@
 
 //- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 //{
-//    return _tblKeys[section];
+//   return _tblKeys[section];
 //}
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
@@ -93,16 +90,15 @@
     return sectionView;
 }
 
+
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-
     // Return the number of sections.
     return _tblKeys.count;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    // Return the number of rows in the section.
     NSString *sect = _tblKeys[section];
     NSArray *data = [_dictionary objectForKey:sect];
     return data.count;
@@ -113,31 +109,37 @@
     return _tblKeys;
 }
 
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    
     static NSString *CellIdentifier = @"Cell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:
-        CellIdentifier];
+                CellIdentifier];
     }
     NSString *sect = _tblKeys[indexPath.section];
     NSArray *data = [_dictionary objectForKey:sect];
-
+    
     NSManagedObject *managedObject = data[indexPath.row];
-    cell.textLabel.text = [managedObject valueForKey:@"text"];
+    cell.textLabel.text = [managedObject valueForKey:@"name"];
     [cell.textLabel setFont:[UIFont fontWithName:@"OpenSans-Semibold" size:16]];
     
     // Configure the cell...
     
     return cell;
+    
+    
 }
 
--(void) fetchTheme
+-(void) fetchAuthor
 {
-    NSFetchRequest *fetchRequest=[NSFetchRequest fetchRequestWithEntityName:@"Theme"];
+    NSFetchRequest *fetchRequest=[NSFetchRequest fetchRequestWithEntityName:@"Author"];
     
-    NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"text" ascending:YES];
+    NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES];
+    //NSSortDescriptor *sortDescriptor=[[NSSortDescriptor alloc] init];
+    
     [fetchRequest setSortDescriptors:[NSArray arrayWithObject:sortDescriptor]];
     
     _tblData = [_managedObjectContext executeFetchRequest:fetchRequest error:nil];
@@ -146,13 +148,13 @@
     
     _dictionary = [[NSMutableDictionary alloc] init];
     
-    for(NSManagedObject *author in _tblData){
-        NSString *text =[author valueForKey:@"text"];
-        NSString *key = [text substringToIndex:1];
+    for(NSManagedObject *aut in _tblData){
+        NSString *author =[aut valueForKey:@"name"];
+        NSString *key = [author substringToIndex:1];
         
         if(![_tblKeys containsObject:key]){
             [_tblKeys addObject:key];
-            NSPredicate *predicate = [NSPredicate predicateWithFormat:@"text beginswith[c] %@", key];
+            NSPredicate *predicate = [NSPredicate predicateWithFormat:@"name beginswith[c] %@", key];
             NSArray *section = [_tblData filteredArrayUsingPredicate:predicate];
             [_dictionary setObject:section forKey:key];
         }
@@ -160,7 +162,7 @@
     }
     [self.tableView reloadData];
     
-
+    
     
     
 }
@@ -227,16 +229,16 @@
 // In a xib-based application, navigation from a table can be handled in -tableView:didSelectRowAtIndexPath:
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    // Navigation logic may go here, for example:
-    // Create the next view controller.
-    //<#DetailViewController#> *detailViewController = [[<#DetailViewController#> alloc] initWithNibName:@"<#Nib name#>" bundle:nil];
+    /* Navigation logic may go here, for example:
+     Create the next view controller.
+    <#DetailViewController#> *detailViewController = [[<#DetailViewController#> alloc] initWithNibName:@"<#Nib name#>" bundle:nil];
 
-    // Pass the selected object to the new view controller.
+    Pass the selected object to the new view controller.
     
-    // Push the view controller.
-    //[self.navigationController pushViewController:detailViewController animated:YES];
-    
-    
+    Push the view controller.
+    [self.navigationController pushViewController:detailViewController animated:YES];
+ 
+   */
     CHRMasterViewController *controller = [[CHRMasterViewController alloc] init];
     controller.svi=YES;
     
@@ -244,7 +246,7 @@
     NSArray *data = [_dictionary objectForKey:sect];
     
     NSManagedObject *managedObject = data[indexPath.row];
-    controller.tematika = [managedObject valueForKey:@"text"];
+    controller.autor = [managedObject valueForKey:@"name"];
     
     //[controller setValue:[NSNumber numberWithBool:NO] forKey:@"svi"];
     //CHRMenuViewController *menuController = [[CHRMenuViewController alloc] init];
@@ -253,6 +255,8 @@
     //[self.slidingViewController setUnderLeftViewController:menuController];
     //[self.slidingViewController resetTopViewAnimated:YES];
     
+    
+ 
 }
  
 

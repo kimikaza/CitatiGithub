@@ -13,6 +13,12 @@
 #import "UIViewController+ECSlidingViewController.h"
 #import "CHRAppDelegate.h"
 #import "CHRCitatCell.h"
+#import "CHREmptyCitationCell.h"
+#import <Social/SLComposeViewController.h>
+#import <Social/SLServiceTypes.h>
+#import "Citation.h"
+#import "Author.h"
+#import "Theme.h"
 
 @interface CHRMasterViewController (){
     
@@ -56,6 +62,7 @@
     //[self createTestData];
     [self prepareCitati];
     [self.collection registerNib:[UINib nibWithNibName:@"CHRCitatCell" bundle:nil] forCellWithReuseIdentifier:@"CitatCell"];
+    [self.collection registerNib:[UINib nibWithNibName:@"CHREmptyCitationCell" bundle:nil] forCellWithReuseIdentifier:@"EmptyCell"];
 	
 
 }
@@ -69,7 +76,7 @@
 #pragma mark - UICollectionViewDelegate
 
 - (NSInteger)collectionView:(UICollectionView *)view numberOfItemsInSection:(NSInteger)section {
-    
+    if (!self.svi && citati.count==0) return 1;
     return citati.count;
 }
 
@@ -77,27 +84,46 @@
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)cv cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     
+    static NSString *EmptyCellIdentifier = @"EmptyCell";
     static NSString *CellIdentifier = @"CitatCell";
     
-    CHRCitatCell *cell = [cv dequeueReusableCellWithReuseIdentifier:CellIdentifier forIndexPath:indexPath];
+    if(!self.svi && citati.count==0) {
     
-    // load the asset for this cell
-    NSManagedObject *citatObject = citati[indexPath.row];
-    cell.citat.text = [citatObject valueForKey:@"text"];
-    cell.author.text = [citatObject valueForKey:@"author"];
-    return cell;
+        CHREmptyCitationCell *cell;
+        cell = [cv dequeueReusableCellWithReuseIdentifier:EmptyCellIdentifier forIndexPath:indexPath];
+         return cell;
+        
+    } else {
+        CHRCitatCell *cell;
+        cell = [cv dequeueReusableCellWithReuseIdentifier:CellIdentifier forIndexPath:indexPath];
+        
+        // load the asset for this cell
+        Citation *citatObject = citati[indexPath.row];
+        cell.citat.text = citatObject.text;
+        cell.author.text = citatObject.author.name;
+        return cell;
+    }
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
     
+    NSString  *favouriteText;
+    NSArray *indexPaths = [self.collection indexPathsForSelectedItems];
+    Citation  *selectedCitation = [citati objectAtIndex:[indexPaths[0] row]];
+
+    if (selectedCitation.favourite.boolValue)
+        favouriteText = @"Makni iz favorita";
+    else
+        favouriteText = @"Spremi u favorite";
     
     
     UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil
                                                              delegate:self
                                                     cancelButtonTitle:@"Odustani"
                                                destructiveButtonTitle:nil
-                                                    otherButtonTitles:@"Podijeli na Facebook",@"Spremi u favorite", nil];
+                                                    otherButtonTitles:@"Podijeli na Facebook",favouriteText, nil];
+    
     [actionSheet showInView:[UIApplication sharedApplication].keyWindow];
     
 }
@@ -108,7 +134,24 @@
 
 -(void)prepareCitati
 {
-    NSFetchRequest *fetchRequest = [NSFetchRequest fetchRequestWithEntityName:@"Citation"];
+    NSFetchRequest *fetchRequest = [NSFetchRequest fetchRequestWithEntityName:@"Citation"];    
+    if (!self.svi) {
+        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"favourite = %@", [NSNumber numberWithBool:YES]];
+        [fetchRequest setPredicate:predicate];
+    }
+    else {
+        if(self.autor) {
+            NSPredicate *predicate = [NSPredicate predicateWithFormat:@"author.name = %@", self.autor];
+            [fetchRequest setPredicate:predicate];
+            }
+        if(self.tematika) {
+            NSPredicate *predicate = [NSPredicate predicateWithFormat:@"theme.text = %@", self.tematika];
+            [fetchRequest setPredicate:predicate];
+
+            }
+        //NSPredicate *predicate = [NSPredicate predicateWithFormat:@"author.name = %@ AND theme.text = %@", self.autor, self.tematika];
+
+        }
     NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"timeStamp" ascending:YES];
     [fetchRequest setSortDescriptors:@[sortDescriptor]];
     
@@ -149,9 +192,9 @@
     
     NSFetchRequest *fetchRequest = [NSFetchRequest fetchRequestWithEntityName:@"Citation"];
 	   
+    
     NSError *error;
     citati = [[_managedObjectContext executeFetchRequest:fetchRequest error:&error] mutableCopy];
-    
 
     if(citati.count == 0)
         return NO;
@@ -206,16 +249,39 @@
     
     
     switch(buttonIndex) {
+        case 0:{
+            
+            if (![SLComposeViewController isAvailableForServiceType:SLServiceTypeFacebook]) {
+                
+                UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Facebook" message:@"Molimo postavite Facebook racun u postavkama mobitela." delegate:nil cancelButtonTitle:@"Odustani" otherButtonTitles:nil];
+                [alertView show];
+                
+            }
+            else {
+                NSArray *indexPaths = [self.collection indexPathsForSelectedItems];
+                Citation  *selectedCitation = [citati objectAtIndex:[indexPaths[0] row]];
+                SLComposeViewController *composeViewController = [SLComposeViewController composeViewControllerForServiceType:SLServiceTypeFacebook];
+                [composeViewController setTitle:@"Citati"];
+                [composeViewController setInitialText:[NSString stringWithFormat:@"%@ - %@",  [selectedCitation valueForKey:@"text"], [selectedCitation.author valueForKey:@"name"]]];
+                
+                [self presentViewController:composeViewController animated:YES completion:nil];
+               
+            }
+        
+        
+        }
+        
         case 1:{
             
 
     
             NSArray *indexPaths = [self.collection indexPathsForSelectedItems];
-            NSManagedObject *selectedCitation = [citati objectAtIndex:[indexPaths[0] row]];
-            NSLog(@"1 clickedButtonAtIndex() : indexPath = %d", [indexPaths[0] row]);
+            Citation *selectedCitation = [citati objectAtIndex:[indexPaths[0] row]];
+            NSLog(@"1 clickedButtonAtIndex() : indexPath = %ld", (long)[indexPaths[0] row]);
     
-            
-            [selectedCitation setValue:[NSNumber numberWithBool:YES] forKey:@"favourite"];
+            if (selectedCitation.favourite.boolValue)
+                [selectedCitation setValue:[NSNumber numberWithBool:NO] forKey:@"favourite"];
+            else [selectedCitation setValue:[NSNumber numberWithBool:YES] forKey:@"favourite"];
     
             CHRAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
             [appDelegate saveContext];

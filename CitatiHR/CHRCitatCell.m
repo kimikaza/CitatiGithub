@@ -42,6 +42,12 @@
 }
 */
 
+- (void)layoutSubviews{
+    [_citat setFont:[UIFont fontWithName:@"OpenSans-SemiboldItalic" size:25]];
+    [_author setFont:[UIFont fontWithName:@"OpenSans-SemiboldItalic" size:25]];
+    [_author setTextColor:[UIColor colorWithRed:169.0/255.0 green:196.0/255.0 blue:246.0/255.0 alpha:1]];
+}
+
 
 
 

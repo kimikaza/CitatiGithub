@@ -15,6 +15,8 @@
 @interface CHRMasterViewController : UIViewController <UIActionSheetDelegate,UICollectionViewDataSource, UICollectionViewDelegate, UIGestureRecognizerDelegate>
 
 @property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;
-@property  BOOL *svi;
+@property (nonatomic, assign) BOOL svi;
+@property (nonatomic, assign) NSString *tematika;
+@property (nonatomic, assign) NSString *autor;
 
 @end
