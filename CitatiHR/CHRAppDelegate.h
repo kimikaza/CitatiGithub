@@ -18,5 +18,6 @@
 
 - (void)saveContext;
 - (NSURL *)applicationDocumentsDirectory;
+- (void)parseAllPostsIntoDatabase:(NSArray *)posts;
 
 @end

@@ -35,6 +35,7 @@
 		4CAE832E18B911F10063675D /* CHRMenuViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4CAE832C18B911F10063675D /* CHRMenuViewController.xib */; };
 		4CE1F9DB19152CB000A7BEA1 /* CHREmptyCitationCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CE1F9DA19152CB000A7BEA1 /* CHREmptyCitationCell.m */; };
 		4CE1F9DD19152CFF00A7BEA1 /* CHREmptyCitationCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4CE1F9DC19152CFF00A7BEA1 /* CHREmptyCitationCell.xib */; };
+		4CE373011934F738007497AA /* Citation.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CE373001934F738007497AA /* Citation.m */; };
 		4CEAC05818E21B890041F170 /* CHRThemeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CEAC05618E21B890041F170 /* CHRThemeViewController.m */; };
 		4CEAC05918E21B890041F170 /* CHRThemeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4CEAC05718E21B890041F170 /* CHRThemeViewController.xib */; };
 		4CEEC6B91901658F004E2314 /* ECPercentDrivenInteractiveTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CEEC6AD1901658F004E2314 /* ECPercentDrivenInteractiveTransition.m */; };
@@ -45,7 +46,6 @@
 		4CEEC6BE1901658F004E2314 /* UIViewController+ECSlidingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CEEC6B81901658F004E2314 /* UIViewController+ECSlidingViewController.m */; };
 		4CEF1889190D0B4F003BEE73 /* CHRAuthorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CEF1887190D0B4F003BEE73 /* CHRAuthorViewController.m */; };
 		4CEF188A190D0B4F003BEE73 /* CHRAuthorViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4CEF1888190D0B4F003BEE73 /* CHRAuthorViewController.xib */; };
-		4CEF1893190D2A20003BEE73 /* Citation.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CEF1892190D2A20003BEE73 /* Citation.m */; };
 		4CEF1896190D2A20003BEE73 /* Author.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CEF1895190D2A20003BEE73 /* Author.m */; };
 		4CEF1899190D2A20003BEE73 /* Theme.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CEF1898190D2A20003BEE73 /* Theme.m */; };
 		4CEF189F190D2A7D003BEE73 /* MASDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CEF189C190D2A7D003BEE73 /* MASDataSource.m */; };
@@ -131,6 +131,8 @@
 		4CE1F9D919152CB000A7BEA1 /* CHREmptyCitationCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHREmptyCitationCell.h; sourceTree = "<group>"; };
 		4CE1F9DA19152CB000A7BEA1 /* CHREmptyCitationCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHREmptyCitationCell.m; sourceTree = "<group>"; };
 		4CE1F9DC19152CFF00A7BEA1 /* CHREmptyCitationCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CHREmptyCitationCell.xib; sourceTree = "<group>"; };
+		4CE372FF1934F738007497AA /* Citation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Citation.h; path = CitatiHR/Model/Citation.h; sourceTree = SOURCE_ROOT; };
+		4CE373001934F738007497AA /* Citation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Citation.m; path = CitatiHR/Model/Citation.m; sourceTree = SOURCE_ROOT; };
 		4CEAC05518E21B890041F170 /* CHRThemeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHRThemeViewController.h; sourceTree = "<group>"; };
 		4CEAC05618E21B890041F170 /* CHRThemeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHRThemeViewController.m; sourceTree = "<group>"; };
 		4CEAC05718E21B890041F170 /* CHRThemeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CHRThemeViewController.xib; sourceTree = "<group>"; };
@@ -150,8 +152,6 @@
 		4CEF1886190D0B4F003BEE73 /* CHRAuthorViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHRAuthorViewController.h; sourceTree = "<group>"; };
 		4CEF1887190D0B4F003BEE73 /* CHRAuthorViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHRAuthorViewController.m; sourceTree = "<group>"; };
 		4CEF1888190D0B4F003BEE73 /* CHRAuthorViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CHRAuthorViewController.xib; sourceTree = "<group>"; };
-		4CEF1891190D2A20003BEE73 /* Citation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Citation.h; path = CitatiHR/Model/Citation.h; sourceTree = SOURCE_ROOT; };
-		4CEF1892190D2A20003BEE73 /* Citation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Citation.m; path = CitatiHR/Model/Citation.m; sourceTree = SOURCE_ROOT; };
 		4CEF1894190D2A20003BEE73 /* Author.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Author.h; path = CitatiHR/Model/Author.h; sourceTree = SOURCE_ROOT; };
 		4CEF1895190D2A20003BEE73 /* Author.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Author.m; path = CitatiHR/Model/Author.m; sourceTree = SOURCE_ROOT; };
 		4CEF1897190D2A20003BEE73 /* Theme.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Theme.h; path = CitatiHR/Model/Theme.h; sourceTree = SOURCE_ROOT; };
@@ -377,12 +377,12 @@
 		4CEF1890190D2991003BEE73 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				4CE372FF1934F738007497AA /* Citation.h */,
+				4CE373001934F738007497AA /* Citation.m */,
 				4CEF1897190D2A20003BEE73 /* Theme.h */,
 				4CEF1898190D2A20003BEE73 /* Theme.m */,
 				4CEF1894190D2A20003BEE73 /* Author.h */,
 				4CEF1895190D2A20003BEE73 /* Author.m */,
-				4CEF1891190D2A20003BEE73 /* Citation.h */,
-				4CEF1892190D2A20003BEE73 /* Citation.m */,
 			);
 			name = Model;
 			path = "../../../Documents/iOSApps/BillsAppXIB/BillsAppXIB/3rd Party";
@@ -605,6 +605,7 @@
 				4C8BE36E18DE0A7A0032C7AA /* CHRScreenEdgePanGestureRecognizer.m in Sources */,
 				4CEF18D0190D2BB5003BEE73 /* AFNetworkActivityIndicatorManager.m in Sources */,
 				4CEF18B5190D2BA8003BEE73 /* AFHTTPRequestOperation.m in Sources */,
+				4CE373011934F738007497AA /* Citation.m in Sources */,
 				4CEEC6BA1901658F004E2314 /* ECSlidingAnimationController.m in Sources */,
 				4CEF18B8190D2BA8003BEE73 /* AFNetworkReachabilityManager.m in Sources */,
 				4CEF18D2190D2BB5003BEE73 /* UIAlertView+AFNetworking.m in Sources */,
@@ -622,7 +623,6 @@
 				4CEF18D4190D2BB5003BEE73 /* UIImageView+AFNetworking.m in Sources */,
 				4CEF1899190D2A20003BEE73 /* Theme.m in Sources */,
 				4CAE82F418B8F5E10063675D /* CHRDetailViewController.m in Sources */,
-				4CEF1893190D2A20003BEE73 /* Citation.m in Sources */,
 				4CEF18B9190D2BA8003BEE73 /* AFSecurityPolicy.m in Sources */,
 				4CEEC6BE1901658F004E2314 /* UIViewController+ECSlidingViewController.m in Sources */,
 				4CEF18D7190D2BB5003BEE73 /* UIWebView+AFNetworking.m in Sources */,

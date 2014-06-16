@@ -18,6 +18,8 @@
 #import "Citation.h"
 #import "MASDataSource.h"
 
+#import "CHRBackgroundDBUtil.h"
+
 @implementation CHRAppDelegate
 
 @synthesize managedObjectContext = _managedObjectContext;
@@ -55,7 +57,16 @@ static void uncaughtExeptionHandler(NSException *exception){
     }
     [self.window makeKeyAndVisible];
     //[self getDataFromWeb];
-    [self writeAllFontsToConsole];
+    //[self writeAllFontsToConsole];
+    CHRBackgroundDBUtil *dbUtil = [CHRBackgroundDBUtil sharedInstance];
+    [dbUtil fetchAditionalDataFromServer];
+    [self scheduleNotification];
+    [[UIApplication sharedApplication] setApplicationIconBadgeNumber:0];
+    NSArray * scheduledApplications = application.scheduledLocalNotifications;
+    int len = scheduledApplications.count;
+    for (int i = 0; i<len; i++) {
+        NSLog(@"ID: %@", [[scheduledApplications objectAtIndex:i] userInfo]);
+    }
     return YES;
 }
 
@@ -93,7 +104,7 @@ static void uncaughtExeptionHandler(NSException *exception){
         Citation *cit = [NSEntityDescription insertNewObjectForEntityForName:@"Citation" inManagedObjectContext:_managedObjectContext];
         cit.favourite = [NSNumber numberWithBool:NO];
         cit.text = [post objectForKey:@"title"];
-        cit.remote_id = [NSString stringWithFormat:@"%ld", (long)[(NSNumber *)[post objectForKey:@"id"] integerValue]];
+        cit.remote_id = [NSNumber numberWithInteger:[[post objectForKey:@"id"] integerValue]] ;
         cit.timeStamp = [self makeDateFromString:[post objectForKey:@"date"]];
         
         NSArray *remoteAuthors = [post objectForKey:@"taxonomy_autor"];
@@ -292,6 +303,49 @@ static void uncaughtExeptionHandler(NSException *exception){
     
     return _persistentStoreCoordinator;
 }
+
+#pragma mark - NotificationScheduling
+
+- (void)scheduleNotification{
+    NSCalendar *calendar = [NSCalendar autoupdatingCurrentCalendar];
+    NSDate *today = [NSDate date];
+    unsigned unitFlags = NSYearCalendarUnit | NSMonthCalendarUnit |  NSDayCalendarUnit;
+    NSDateComponents *compsToday = [calendar components:unitFlags fromDate:today];
+    NSDateComponents *comps = [[NSDateComponents alloc] init];
+    [compsToday setHour:9];
+    today = [calendar dateFromComponents:compsToday];
+    [comps setSecond:30];
+    
+    for (int i=0; i<60; i++) {
+        [comps setDay:i];
+        NSDate *tomorrow = [calendar dateByAddingComponents:comps toDate:today  options:0];
+
+        UILocalNotification *localNotif = [[UILocalNotification alloc] init];
+        if (localNotif == nil)
+        return;
+        //[localNotif setSoundName:@"Cartoon.caf"];
+        localNotif.fireDate = tomorrow;
+        localNotif.timeZone = [NSTimeZone defaultTimeZone];
+        localNotif.alertBody = @"poruka";
+    
+        //localNotif.alertBody = [NSString stringWithFormat:[self.st locStr:@"%@ in %i minutes."],
+                           // [[e valueForKey:@"film"] valueForKey:[self.st sufStr:@"name"]], minutesBefore];
+        localNotif.alertAction = @"View Details";
+    
+        localNotif.soundName = UILocalNotificationDefaultSoundName;
+        localNotif.applicationIconBadgeNumber = 1;
+        NSDateFormatter *df = [[NSDateFormatter alloc] init];
+        [df setDateFormat:@"yyyy-MM-dd HH:mm"];
+        NSString *idForNotif = [df stringFromDate:tomorrow];
+        idForNotif = [@"citati" stringByAppendingString:idForNotif];
+        NSDictionary *infoDict = [NSDictionary dictionaryWithObject:idForNotif forKey:@"ID"];
+        localNotif.userInfo = infoDict;
+    
+        [[UIApplication sharedApplication] scheduleLocalNotification:localNotif];
+        //[[UIApplication sharedApplication] presentLocalNotificationNow:localNotif];
+    }
+}
+
 
 #pragma mark - Application's Documents directory
 
