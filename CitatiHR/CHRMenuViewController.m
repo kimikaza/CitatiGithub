@@ -61,10 +61,10 @@
 
 - (void)setButtonFonts
 {
-    [[_theme titleLabel] setFont:[UIFont fontWithName:@"OpenSans-Semibold" size:17]];
-    [[_author titleLabel] setFont:[UIFont fontWithName:@"OpenSans-Semibold" size:17]];
-    [[_favourite titleLabel] setFont:[UIFont fontWithName:@"OpenSans-Semibold" size:17]];
-    [[_citation titleLabel] setFont:[UIFont fontWithName:@"OpenSans-Semibold" size:17]];
+    [[_theme titleLabel] setFont:[UIFont fontWithName:@"FontAwesome" size:17]];
+    [[_author titleLabel] setFont:[UIFont fontWithName:@"FontAwesome" size:17]];
+    [[_favourite titleLabel] setFont:[UIFont fontWithName:@"FontAwesome" size:17]];
+    [[_citation titleLabel] setFont:[UIFont fontWithName:@"FontAwesome" size:17]];
 }
 
 - (IBAction)themeButtonPressed:(id)sender

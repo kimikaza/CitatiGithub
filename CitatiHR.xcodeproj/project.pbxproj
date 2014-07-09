@@ -80,6 +80,7 @@
 		4CEF18F2190D458C003BEE73 /* CitatiHR.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = 4CEF18EF190D458C003BEE73 /* CitatiHR.sqlite */; };
 		4CEF18F3190D458C003BEE73 /* CitatiHR.sqlite-shm in Resources */ = {isa = PBXBuildFile; fileRef = 4CEF18F0190D458C003BEE73 /* CitatiHR.sqlite-shm */; };
 		4CEF18F4190D458C003BEE73 /* CitatiHR.sqlite-wal in Resources */ = {isa = PBXBuildFile; fileRef = 4CEF18F1190D458C003BEE73 /* CitatiHR.sqlite-wal */; };
+		4CF1EB41195729600016D165 /* FontAwesome.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4CF1EB40195729600016D165 /* FontAwesome.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -209,6 +210,7 @@
 		4CEF18EF190D458C003BEE73 /* CitatiHR.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = CitatiHR.sqlite; sourceTree = "<group>"; };
 		4CEF18F0190D458C003BEE73 /* CitatiHR.sqlite-shm */ = {isa = PBXFileReference; lastKnownFileType = file; path = "CitatiHR.sqlite-shm"; sourceTree = "<group>"; };
 		4CEF18F1190D458C003BEE73 /* CitatiHR.sqlite-wal */ = {isa = PBXFileReference; lastKnownFileType = text; path = "CitatiHR.sqlite-wal"; sourceTree = "<group>"; };
+		4CF1EB40195729600016D165 /* FontAwesome.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = FontAwesome.ttf; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -454,6 +456,7 @@
 		4CEF18D8190D3C52003BEE73 /* open-sans */ = {
 			isa = PBXGroup;
 			children = (
+				4CF1EB40195729600016D165 /* FontAwesome.ttf */,
 				4CEF18DA190D3C52003BEE73 /* OpenSans-Bold.ttf */,
 				4CEF18DB190D3C52003BEE73 /* OpenSans-BoldItalic.ttf */,
 				4CEF18DC190D3C52003BEE73 /* OpenSans-ExtraBold.ttf */,
@@ -559,6 +562,7 @@
 				4CEF18EB190D3C52003BEE73 /* OpenSans-LightItalic.ttf in Resources */,
 				4CEF18E6190D3C52003BEE73 /* OpenSans-BoldItalic.ttf in Resources */,
 				4CAE832E18B911F10063675D /* CHRMenuViewController.xib in Resources */,
+				4CF1EB41195729600016D165 /* FontAwesome.ttf in Resources */,
 				4CEF18ED190D3C52003BEE73 /* OpenSans-Semibold.ttf in Resources */,
 				4CEF18F3190D458C003BEE73 /* CitatiHR.sqlite-shm in Resources */,
 				4CEF18EA190D3C52003BEE73 /* OpenSans-Light.ttf in Resources */,

@@ -56,8 +56,8 @@ static void uncaughtExeptionHandler(NSException *exception){
         controller.managedObjectContext = self.managedObjectContext;
     }
     [self.window makeKeyAndVisible];
-    //[self getDataFromWeb];
-    //[self writeAllFontsToConsole];
+    [self getDataFromWeb];
+    [self writeAllFontsToConsole];
     CHRBackgroundDBUtil *dbUtil = [CHRBackgroundDBUtil sharedInstance];
     [dbUtil fetchAditionalDataFromServer];
     [self scheduleNotification];
