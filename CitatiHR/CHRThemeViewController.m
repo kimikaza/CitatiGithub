@@ -43,7 +43,6 @@
 }
 
 
-
 - (id)initWithStyle:(UITableViewStyle)style
 {
     self = [super initWithStyle:style];
@@ -61,6 +60,7 @@
     
     [self.tableView setContentInset:UIEdgeInsetsMake(20, 0, 0, 0)];
     
+
 
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
@@ -87,7 +87,7 @@
     UIView *sectionView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 22)];
     [sectionView setBackgroundColor:[UIColor colorWithRed:0.2 green:0.6 blue:0.8 alpha:1]]; /*#3399cc*/
     UILabel *sectionLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, 100, 22)];
-    [sectionLabel setFont:[UIFont fontWithName:@"OpenSans-Bold" size:14]];
+    [sectionLabel setFont:[UIFont fontWithName:@"FontAwesome" size:14]];
     sectionLabel.text = _tblKeys[section];
     [sectionView addSubview:sectionLabel];
     return sectionView;
@@ -126,7 +126,7 @@
 
     NSManagedObject *managedObject = data[indexPath.row];
     cell.textLabel.text = [managedObject valueForKey:@"text"];
-    [cell.textLabel setFont:[UIFont fontWithName:@"OpenSans-Semibold" size:16]];
+    [cell.textLabel setFont:[UIFont fontWithName:@"FontAwesome" size:16]];
     
     // Configure the cell...
     

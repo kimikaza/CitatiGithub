@@ -49,14 +49,31 @@
     [super viewWillAppear:animated];
     [self.view addGestureRecognizer:self.slidingViewController.leftPanGesture];
     [self.view addGestureRecognizer:self.slidingViewController.rightPanGesture];
+    self.navigationController.navigationBar.frame = CGRectOffset(self.navigationController.navigationBar.frame, 0.0, -20.0);
     
     
 
 }
 
+- (BOOL)prefersStatusBarHidden {
+    return YES;
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    if ([self respondsToSelector:@selector(setNeedsStatusBarAppearanceUpdate)]) {
+        // iOS 7
+        [self performSelector:@selector(setNeedsStatusBarAppearanceUpdate)];
+    } else {
+        // iOS 6
+        [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationSlide];
+    }
+    
+    
+
+
     
     [self fetchContext];
     //[self createTestData];
@@ -113,9 +130,9 @@
     Citation  *selectedCitation = [citati objectAtIndex:[indexPaths[0] row]];
 
     if (selectedCitation.favourite.boolValue)
-        favouriteText = @"Makni iz favorita";
+        favouriteText = @"Makni iz zabiljeski";
     else
-        favouriteText = @"Spremi u favorite";
+        favouriteText = @"Zabiljezi";
     
     
     UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil
