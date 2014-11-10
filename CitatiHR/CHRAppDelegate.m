@@ -46,7 +46,7 @@ static void uncaughtExeptionHandler(NSException *exception){
         controller.managedObjectContext = self.managedObjectContext;
     } else {
         CHRMasterViewController *controller = [[CHRMasterViewController alloc] init];
-        [controller setSvi:YES];
+        [controller setSvi:CHRResultSetTypeAll];
         CHRMenuViewController *menuController = [[CHRMenuViewController alloc] init];
         ECSlidingViewController *slidingController = [ECSlidingViewController slidingWithTopViewController:controller];
         [slidingController setUnderLeftViewController:menuController];

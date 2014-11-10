@@ -10,4 +10,6 @@
 
 @interface CHREmptyCitationCell : UICollectionViewCell
 
+@property (nonatomic, strong) IBOutlet UITextView *messageView;
+
 @end

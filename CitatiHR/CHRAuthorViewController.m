@@ -44,6 +44,17 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    [self.tableView setSectionIndexBackgroundColor:[UIColor clearColor]];
+    [self.tableView setSectionIndexColor:[UIColor colorWithRed:51/255.0 green:153/255.0 blue:204/255.0 alpha:1]];
+    
+    if ([self respondsToSelector:@selector(setNeedsStatusBarAppearanceUpdate)]) {
+        // iOS 7
+        [self performSelector:@selector(setNeedsStatusBarAppearanceUpdate)];
+    } else {
+        // iOS 6
+        [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationSlide];
+    }
+    
     //[self.view addGestureRecognizer:self.slidingViewController.leftPanGesture];
     //[self.view addGestureRecognizer:self.slidingViewController.rightPanGesture];
     [[UIApplication sharedApplication] setStatusBarHidden:YES];
@@ -52,11 +63,16 @@
 }
 
 
+- (BOOL)prefersStatusBarHidden{
+    return YES;
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     [self fetchContext];
-    [self.tableView setContentInset:UIEdgeInsetsMake(20, 0, 0, 0)];
+    //[self.tableView setContentInset:UIEdgeInsetsMake(20, 0, 0, 0)];
+
 
 
     // Uncomment the following line to preserve selection between presentations.
@@ -84,7 +100,8 @@
     UIView *sectionView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 22)];
     [sectionView setBackgroundColor:[UIColor colorWithRed:0.2 green:0.6 blue:0.8 alpha:1]]; /*#3399cc*/
     UILabel *sectionLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, 100, 22)];
-    [sectionLabel setFont:[UIFont fontWithName:@"FontAwesome" size:14]];
+    [sectionLabel setFont:[UIFont fontWithName:@"OpenSans-Semibold" size:14]];
+    [sectionLabel setTextColor:[UIColor whiteColor]];
     sectionLabel.text = _tblKeys[section];
     [sectionView addSubview:sectionLabel];
     return sectionView;
@@ -240,7 +257,7 @@
  
    */
     CHRMasterViewController *controller = [[CHRMasterViewController alloc] init];
-    controller.svi=YES;
+    controller.svi=CHRResultSetTypeAll;
     
     NSString *sect = _tblKeys[indexPath.section];
     NSArray *data = [_dictionary objectForKey:sect];

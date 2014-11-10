@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4C0B0021196F059F00543BF8 /* FAImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C0B001C196F059F00543BF8 /* FAImageView.m */; };
+		4C0B0022196F059F00543BF8 /* NSString+FontAwesome.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C0B001E196F059F00543BF8 /* NSString+FontAwesome.m */; };
+		4C0B0023196F059F00543BF8 /* UIFont+FontAwesome.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C0B0020196F059F00543BF8 /* UIFont+FontAwesome.m */; };
 		4C1093FD1923D34A00EB44A3 /* CHRBackgroundDBUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C1093FC1923D34A00EB44A3 /* CHRBackgroundDBUtil.m */; };
 		4C8BE36918DDF66D0032C7AA /* CHRCitatCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C8BE36818DDF66D0032C7AA /* CHRCitatCell.m */; };
 		4C8BE36B18DDF6C20032C7AA /* CHRCitatCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4C8BE36A18DDF6C20032C7AA /* CHRCitatCell.xib */; };
@@ -94,6 +97,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		4C0B001B196F059F00543BF8 /* FAImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FAImageView.h; sourceTree = "<group>"; };
+		4C0B001C196F059F00543BF8 /* FAImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FAImageView.m; sourceTree = "<group>"; };
+		4C0B001D196F059F00543BF8 /* NSString+FontAwesome.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+FontAwesome.h"; sourceTree = "<group>"; };
+		4C0B001E196F059F00543BF8 /* NSString+FontAwesome.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+FontAwesome.m"; sourceTree = "<group>"; };
+		4C0B001F196F059F00543BF8 /* UIFont+FontAwesome.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIFont+FontAwesome.h"; sourceTree = "<group>"; };
+		4C0B0020196F059F00543BF8 /* UIFont+FontAwesome.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIFont+FontAwesome.m"; sourceTree = "<group>"; };
 		4C1093FB1923D34A00EB44A3 /* CHRBackgroundDBUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHRBackgroundDBUtil.h; sourceTree = "<group>"; };
 		4C1093FC1923D34A00EB44A3 /* CHRBackgroundDBUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHRBackgroundDBUtil.m; sourceTree = "<group>"; };
 		4C8BE36718DDF66D0032C7AA /* CHRCitatCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHRCitatCell.h; sourceTree = "<group>"; };
@@ -239,6 +248,20 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4C0B001A196F059F00543BF8 /* FontAwesome */ = {
+			isa = PBXGroup;
+			children = (
+				4C0B001B196F059F00543BF8 /* FAImageView.h */,
+				4C0B001C196F059F00543BF8 /* FAImageView.m */,
+				4C0B001D196F059F00543BF8 /* NSString+FontAwesome.h */,
+				4C0B001E196F059F00543BF8 /* NSString+FontAwesome.m */,
+				4C0B001F196F059F00543BF8 /* UIFont+FontAwesome.h */,
+				4C0B0020196F059F00543BF8 /* UIFont+FontAwesome.m */,
+			);
+			name = FontAwesome;
+			path = CitatiHR/3rdParty/FontAwesome;
+			sourceTree = SOURCE_ROOT;
+		};
 		4CAE82C618B8F5E10063675D = {
 			isa = PBXGroup;
 			children = (
@@ -347,6 +370,7 @@
 		4CAE831518B90A160063675D /* 3rd Party */ = {
 			isa = PBXGroup;
 			children = (
+				4C0B001A196F059F00543BF8 /* FontAwesome */,
 				4CEF18BE190D2BB5003BEE73 /* UIKit+AFNetworking */,
 				4CEF18A1190D2BA8003BEE73 /* AFNetworking */,
 				4CEEC6AB1901658F004E2314 /* ECSlidingViewController */,
@@ -606,12 +630,15 @@
 				4CEEC6B91901658F004E2314 /* ECPercentDrivenInteractiveTransition.m in Sources */,
 				4CAE82E518B8F5E10063675D /* CHRAppDelegate.m in Sources */,
 				4CAE82E118B8F5E10063675D /* main.m in Sources */,
+				4C0B0021196F059F00543BF8 /* FAImageView.m in Sources */,
+				4C0B0022196F059F00543BF8 /* NSString+FontAwesome.m in Sources */,
 				4C8BE36E18DE0A7A0032C7AA /* CHRScreenEdgePanGestureRecognizer.m in Sources */,
 				4CEF18D0190D2BB5003BEE73 /* AFNetworkActivityIndicatorManager.m in Sources */,
 				4CEF18B5190D2BA8003BEE73 /* AFHTTPRequestOperation.m in Sources */,
 				4CE373011934F738007497AA /* Citation.m in Sources */,
 				4CEEC6BA1901658F004E2314 /* ECSlidingAnimationController.m in Sources */,
 				4CEF18B8190D2BA8003BEE73 /* AFNetworkReachabilityManager.m in Sources */,
+				4C0B0023196F059F00543BF8 /* UIFont+FontAwesome.m in Sources */,
 				4CEF18D2190D2BB5003BEE73 /* UIAlertView+AFNetworking.m in Sources */,
 				4CEEC6BC1901658F004E2314 /* ECSlidingSegue.m in Sources */,
 				4CEF18BD190D2BA8003BEE73 /* AFURLSessionManager.m in Sources */,

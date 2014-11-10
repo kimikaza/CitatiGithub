@@ -1,0 +1,95 @@
+{\rtf1\ansi\ansicpg1252\cocoartf1265\cocoasubrtf190
+{\fonttbl\f0\fnil\fcharset0 Menlo-Regular;}
+{\colortbl;\red255\green255\blue255;\red170\green13\blue145;\red92\green38\blue153;\red46\green13\blue110;
+\red196\green26\blue22;\red28\green0\blue207;\red0\green116\blue0;\red100\green56\blue32;}
+\paperw11900\paperh16840\margl1440\margr1440\vieww10800\viewh8400\viewkind0
+\deftab529
+\pard\tx529\pardeftab529\pardirnatural
+
+\f0\fs22 \cf0 \CocoaLigature0 - (\cf2 void\cf0 )cancelNotificationWithEvent:(\cf3 NSManagedObject\cf0  *)e\{\
+    \cf3 NSDate\cf0  *itemDate = [e \cf4 valueForKey\cf0 :\cf5 @"eventtime"\cf0 ];\
+    \cf3 NSDateFormatter\cf0  *df = [[\cf3 NSDateFormatter\cf0  \cf4 alloc\cf0 ] \cf4 init\cf0 ];\
+    [df \cf4 setDateFormat\cf0 :\cf5 @"yyyy-MM-dd HH:mm"\cf0 ];\
+    \cf3 NSString\cf0  *myIDToCancel = [df \cf4 stringFromDate\cf0 :itemDate];\
+    \cf4 NSLog\cf0 (\cf5 @"ID TO CANCEL=%@"\cf0 , myIDToCancel);\
+    \cf3 UILocalNotification\cf0  *notificationToCancel=\cf2 nil\cf0 ;\
+    \cf4 NSLog\cf0 (\cf5 @"cancelling 0"\cf0 );\
+    \cf3 NSArray\cf0  *arr=[[\cf3 UIApplication\cf0  \cf4 sharedApplication\cf0 ] \cf4 scheduledLocalNotifications\cf0 ];\
+    \cf4 NSLog\cf0 (\cf5 @"cancelling 0.5"\cf0 );\
+    \cf2 if\cf0 ([arr \cf4 count\cf0 ]>\cf6 0\cf0 )\{\
+        \cf4 NSLog\cf0 (\cf5 @"cancelling 0.7"\cf0 );\
+        \cf2 for\cf0 (\cf3 UILocalNotification\cf0  *aNotif \cf2 in\cf0  arr) \{\
+            \cf4 NSLog\cf0 (\cf5 @"cancelling1"\cf0 );\
+            \cf3 NSString\cf0  *obj=[aNotif.\cf3 userInfo\cf0  \cf4 objectForKey\cf0 :\cf5 @"ID"\cf0 ];\
+            \cf4 NSLog\cf0 (\cf5 @"cancelling 1.2"\cf0 );\
+            \cf2 if\cf0 (obj!=\cf2 nil\cf0  && [obj \cf4 isEqualToString\cf0 :myIDToCancel]) \{\
+                \cf4 NSLog\cf0 (\cf5 @"Cancelling notification"\cf0 );\
+                notificationToCancel=aNotif;\
+                \cf4 NSLog\cf0 (\cf5 @"cancelling 1.5"\cf0 );\
+                \cf2 break\cf0 ;\
+            \}\
+        \}\
+        \cf4 NSLog\cf0 (\cf5 @"cancelling2"\cf0 );\
+        \cf2 if\cf0 (notificationToCancel!=\cf2 nil\cf0 )\{\
+            \cf4 NSLog\cf0 (\cf5 @"cancelling2.5"\cf0 );\
+            [[\cf3 UIApplication\cf0  \cf4 sharedApplication\cf0 ] \cf4 cancelLocalNotification\cf0 :notificationToCancel];\
+        \}\
+        \cf4 NSLog\cf0 (\cf5 @"cancelling3"\cf0 );\
+    \}\
+\}\
+\
++ (\cf3 NSString\cf0  *) formatTimeInterval:(\cf3 NSDate\cf0  *)date\{\
+    \cf3 NSString\cf0  *returnString;\
+    \cf3 NSCalendar\cf0  *calendar = [\cf3 NSCalendar\cf0  \cf4 currentCalendar\cf0 ];\
+    [calendar \cf4 setTimeZone\cf0 :[\cf3 NSTimeZone\cf0  \cf4 systemTimeZone\cf0 ]];\
+    DDLogVerbose(\cf5 @"SYSTEM TIME ZONE IS:%@"\cf0 , [\cf3 NSTimeZone\cf0  \cf4 systemTimeZone\cf0 ]);\
+    \cf3 NSString\cf0  *dateFormat2 = \cf5 @"yyyy-MM-dd'T'HH:mm:ss"\cf0 ;\
+    \cf3 NSDateFormatter\cf0  *dateFormatter2 = [[\cf3 NSDateFormatter\cf0  \cf4 alloc\cf0 ] \cf4 init\cf0 ];\
+    [dateFormatter2 \cf4 setDateFormat\cf0 :dateFormat2];\
+    [dateFormatter2 \cf4 setTimeZone\cf0 :[\cf3 NSTimeZone\cf0  \cf4 systemTimeZone\cf0 ]];\
+    \cf3 NSDate\cf0  *nowDate = [\cf3 NSDate\cf0  \cf4 date\cf0 ];\
+    DDLogVerbose(\cf5 @"original date is :%@ right now is:%@"\cf0 , [dateFormatter2 \cf4 stringFromDate\cf0 :date], [dateFormatter2 \cf4 stringFromDate\cf0 :nowDate]);\
+    \cf3 NSDateComponents\cf0  *dateComponents = [calendar \cf4 components\cf0 :\cf4 NSSecondCalendarUnit\cf0 |\cf4 NSMinuteCalendarUnit\cf0 |\cf4 NSHourCalendarUnit\cf0 |\cf4 NSDayCalendarUnit\cf0 \
+                                                   \cf4 fromDate\cf0 :date\
+                                                     \cf4 toDate\cf0 :nowDate\
+                                                    \cf4 options\cf0 :\cf6 0\cf0 ];\
+    \
+    \cf3 NSLocale\cf0  *usLocale = [[\cf3 NSLocale\cf0  \cf4 alloc\cf0 ] \cf4 initWithLocaleIdentifier\cf0 :\cf5 @"en_US"\cf0 ];\
+    \cf3 NSString\cf0  *dateFormatString = [\cf3 NSDateFormatter\cf0  \cf4 dateFormatFromTemplate\cf0 :\cf5 @"MMM.dd"\cf0 \
+                                                             \cf4 options\cf0 :\cf6 0\cf0 \
+                                                              \cf4 locale\cf0 :usLocale\cf7 /*[NSLocale currentLocale]*/\cf0 ];\
+    \cf3 NSDateFormatter\cf0  *dateFormatter = [[\cf3 NSDateFormatter\cf0  \cf4 alloc\cf0 ] \cf4 init\cf0 ];\
+    [dateFormatter \cf4 setDateFormat\cf0 :dateFormatString];\
+    [dateFormatter \cf4 setLocale\cf0 :usLocale];\
+    [dateFormatter \cf4 setTimeZone\cf0 :[\cf3 NSTimeZone\cf0  \cf4 systemTimeZone\cf0 ]];\
+    \cf3 NSString\cf0  *dayFormatString = [\cf3 NSDateFormatter\cf0  \cf4 dateFormatFromTemplate\cf0 :\cf5 @"EEEE"\cf0 \
+                                                                \cf4 options\cf0 :\cf6 0\cf0 \
+                                                                 \cf4 locale\cf0 :usLocale\cf7 /*[NSLocale currentLocale]*/\cf0 ];\
+    \cf3 NSDateFormatter\cf0  *dayFormatter = [[\cf3 NSDateFormatter\cf0  \cf4 alloc\cf0 ] \cf4 init\cf0 ];\
+    [dayFormatter \cf4 setLocale\cf0 :usLocale];\
+    [dayFormatter \cf4 setDateFormat\cf0 :dayFormatString];\
+    \
+    \cf2 if\cf0 (dateComponents.\cf4 day\cf0  > \cf6 6\cf0 )\
+        returnString = [dateFormatter \cf4 stringFromDate\cf0 :date];\
+    \cf2 else\cf0  \cf2 if\cf0 (dateComponents.\cf4 day\cf0  > \cf6 1\cf0  && dateComponents.\cf4 day\cf0  <= \cf6 6\cf0 )\
+        returnString = [dayFormatter \cf4 stringFromDate\cf0 :date];\
+    \cf2 else\cf0  \cf2 if\cf0 (dateComponents.\cf4 day\cf0  == \cf6 1\cf0 )\
+        returnString = \cf8 NSLocalizedString\cf0 (\cf5 @"NEWS_VIEW__TIME_YESTERDAY"\cf0 , \cf5 @"yesterday"\cf0 );\
+    \cf2 else\cf0  \cf2 if\cf0 (dateComponents.\cf4 day\cf0  == \cf6 0\cf0  && dateComponents.\cf4 hour\cf0  > \cf6 1\cf0  && dateComponents.\cf4 hour\cf0  <= \cf6 24\cf0 )\
+        returnString = [\cf3 NSString\cf0  \cf4 stringWithFormat\cf0 :\cf5 @"%d %@"\cf0 , dateComponents.\cf4 hour\cf0 , \cf8 NSLocalizedString\cf0 (\cf5 @"NEWS_VIEW__TIME_HOURS"\cf0 , \cf5 @"hours"\cf0 )];\
+    \cf2 else\cf0  \cf2 if\cf0 (dateComponents.\cf4 day\cf0  == \cf6 0\cf0  && dateComponents.\cf4 hour\cf0  == \cf6 1\cf0 )\
+        returnString = [\cf3 NSString\cf0  \cf4 stringWithFormat\cf0 :\cf5 @"%d %@"\cf0 , dateComponents.\cf4 hour\cf0 , \cf8 NSLocalizedString\cf0 (\cf5 @"NEWS_VIEW__TIME_HOUR"\cf0 , \cf5 @"hour"\cf0 )];\
+    \cf2 else\cf0  \cf2 if\cf0 (dateComponents.\cf4 day\cf0  == \cf6 0\cf0  && dateComponents.\cf4 hour\cf0  == \cf6 0\cf0  && dateComponents.\cf4 minute\cf0  < \cf6 60\cf0  && dateComponents.\cf4 minute\cf0  > \cf6 1\cf0 )\
+        returnString = [\cf3 NSString\cf0  \cf4 stringWithFormat\cf0 :\cf5 @"%d %@"\cf0 , dateComponents.\cf4 minute\cf0 , \cf8 NSLocalizedString\cf0 (\cf5 @"NEWS_VIEW__TIME_MINUTES"\cf0 , \cf5 @"minutes"\cf0 )];\
+    \cf2 else\cf0  \cf2 if\cf0 (dateComponents.\cf4 day\cf0  == \cf6 0\cf0  && dateComponents.\cf4 hour\cf0  == \cf6 0\cf0  && dateComponents.\cf4 minute\cf0  == \cf6 1\cf0 )\
+        returnString = [\cf3 NSString\cf0  \cf4 stringWithFormat\cf0 :\cf5 @"%d %@"\cf0 , dateComponents.\cf4 minute\cf0 , \cf8 NSLocalizedString\cf0 (\cf5 @"NEWS_VIEW__TIME_MINUTE"\cf0 , \cf5 @"minute"\cf0 )];\
+    \cf2 else\cf0  \cf2 if\cf0 (dateComponents.\cf4 day\cf0  == \cf6 0\cf0  && dateComponents.\cf4 hour\cf0  == \cf6 0\cf0  && dateComponents.\cf4 minute\cf0  == \cf6 0\cf0  && dateComponents.\cf4 second\cf0  < \cf6 60\cf0  && dateComponents.\cf4 second\cf0  >= \cf6 10\cf0 )\
+        returnString = [\cf3 NSString\cf0  \cf4 stringWithFormat\cf0 :\cf5 @"%d %@"\cf0 , dateComponents.\cf4 second\cf0 , \cf8 NSLocalizedString\cf0 (\cf5 @"NEWS_VIEW__TIME_SECONDS"\cf0 , \cf5 @"seconds"\cf0 )];\
+    \cf2 else\cf0  \cf2 if\cf0 (dateComponents.\cf4 day\cf0  == \cf6 0\cf0  && dateComponents.\cf4 hour\cf0  == \cf6 0\cf0  && dateComponents.\cf4 minute\cf0  == \cf6 0\cf0  && dateComponents.\cf4 second\cf0  < \cf6 10\cf0 )\
+        returnString = \cf8 NSLocalizedString\cf0 (\cf5 @"NEWS_VIEW__TIME_JUST_NOW"\cf0 , \cf5 @"just now"\cf0 );\
+\
+    \cf2 return\cf0  returnString;\
+    \
+\}\
+\
+}

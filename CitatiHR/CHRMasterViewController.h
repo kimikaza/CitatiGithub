@@ -12,11 +12,18 @@
 
 #import <CoreData/CoreData.h>
 
+typedef NS_ENUM(NSInteger, CHRResultSetType) {
+    CHRResultSetTypeAll,
+    CHRResultSetTypeSearch,
+    CHRResultSetTypeFavorites
+};
+
 @interface CHRMasterViewController : UIViewController <UIActionSheetDelegate,UICollectionViewDataSource, UICollectionViewDelegate, UIGestureRecognizerDelegate>
 
 @property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;
-@property (nonatomic, assign) BOOL svi;
-@property (nonatomic, assign) NSString *tematika;
-@property (nonatomic, assign) NSString *autor;
+@property (nonatomic, assign) CHRResultSetType svi;
+@property (nonatomic, strong) NSString *tematika;
+@property (nonatomic, strong) NSString *autor;
+@property (nonatomic, strong) NSString *searchString;
 
 @end

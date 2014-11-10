@@ -50,7 +50,13 @@
     [self.view addGestureRecognizer:self.slidingViewController.leftPanGesture];
     [self.view addGestureRecognizer:self.slidingViewController.rightPanGesture];
     self.navigationController.navigationBar.frame = CGRectOffset(self.navigationController.navigationBar.frame, 0.0, -20.0);
-    
+    if ([self respondsToSelector:@selector(setNeedsStatusBarAppearanceUpdate)]) {
+        // iOS 7
+        [self performSelector:@selector(setNeedsStatusBarAppearanceUpdate)];
+    } else {
+        // iOS 6
+        [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationSlide];
+    }
     
 
 }
@@ -63,13 +69,7 @@
 {
     [super viewDidLoad];
     
-    if ([self respondsToSelector:@selector(setNeedsStatusBarAppearanceUpdate)]) {
-        // iOS 7
-        [self performSelector:@selector(setNeedsStatusBarAppearanceUpdate)];
-    } else {
-        // iOS 6
-        [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationSlide];
-    }
+    
     
     
 
@@ -93,34 +93,66 @@
 #pragma mark - UICollectionViewDelegate
 
 - (NSInteger)collectionView:(UICollectionView *)view numberOfItemsInSection:(NSInteger)section {
-    if (!self.svi && citati.count==0) return 1;
-    return citati.count;
+    switch (_svi) {
+        case CHRResultSetTypeAll:
+            return citati.count;
+            break;
+        case CHRResultSetTypeSearch:
+        case CHRResultSetTypeFavorites:
+            if( citati.count == 0 ) return 1;
+            else return citati.count;
+            break;
+        default:
+            return citati.count;
+            break;
+    }
 }
 
 #define kImageViewTag 1 // the image view inside the collection view cell prototype is tagged with "1"
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)cv cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     
-    static NSString *EmptyCellIdentifier = @"EmptyCell";
-    static NSString *CellIdentifier = @"CitatCell";
-    
-    if(!self.svi && citati.count==0) {
-    
-        CHREmptyCitationCell *cell;
-        cell = [cv dequeueReusableCellWithReuseIdentifier:EmptyCellIdentifier forIndexPath:indexPath];
-         return cell;
-        
-    } else {
-        CHRCitatCell *cell;
-        cell = [cv dequeueReusableCellWithReuseIdentifier:CellIdentifier forIndexPath:indexPath];
-        
-        // load the asset for this cell
-        Citation *citatObject = citati[indexPath.row];
-        cell.citat.text = citatObject.text;
-        cell.author.text = citatObject.author.name;
-        return cell;
+    switch (_svi) {
+        case CHRResultSetTypeSearch:
+            if( citati.count == 0 ) return [self collectionView:cv emptyCellForIndexPath:indexPath];
+            else return [self collectionView:cv CitationForIndexPath:indexPath];
+            break;
+        case CHRResultSetTypeAll:
+            return [self collectionView:cv CitationForIndexPath:indexPath];
+            break;
+        case CHRResultSetTypeFavorites:
+            if( citati.count == 0 ) return [self collectionView:cv emptyCellForIndexPath:indexPath];
+            else return [self collectionView:cv CitationForIndexPath:indexPath];
+            break;
+        default:
+            return nil;
+            break;
     }
 }
+
+- (UICollectionViewCell *)collectionView:(UICollectionView *)cv emptyCellForIndexPath:(NSIndexPath *)indexPath{
+    static NSString *EmptyCellIdentifier = @"EmptyCell";
+    CHREmptyCitationCell *cell;
+    cell = [cv dequeueReusableCellWithReuseIdentifier:EmptyCellIdentifier forIndexPath:indexPath];
+    if(_svi == CHRResultSetTypeSearch){
+        NSString *msgText = [NSString stringWithFormat:@"Nema nijednog citata koji sadrži \"%@\"", _searchString];
+        cell.messageView.text = msgText;
+    }
+    return cell;
+}
+
+- (UICollectionViewCell *)collectionView:(UICollectionView *)cv CitationForIndexPath:(NSIndexPath *)indexPath{
+    static NSString *CellIdentifier = @"CitatCell";
+    CHRCitatCell *cell;
+    cell = [cv dequeueReusableCellWithReuseIdentifier:CellIdentifier forIndexPath:indexPath];
+    
+    // load the asset for this cell
+    Citation *citatObject = citati[indexPath.row];
+    cell.citat.text = citatObject.text;
+    cell.author.text = citatObject.author.name;
+    return cell;
+}
+
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -151,29 +183,42 @@
 
 -(void)prepareCitati
 {
-    NSFetchRequest *fetchRequest = [NSFetchRequest fetchRequestWithEntityName:@"Citation"];    
-    if (!self.svi) {
-        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"favourite = %@", [NSNumber numberWithBool:YES]];
-        [fetchRequest setPredicate:predicate];
+    NSFetchRequest *fetchRequest = [NSFetchRequest fetchRequestWithEntityName:@"Citation"];
+    switch (_svi) {
+        case CHRResultSetTypeAll:
+            if(self.autor) {
+                NSPredicate *predicate = [NSPredicate predicateWithFormat:@"author.name = %@", self.autor];
+                [fetchRequest setPredicate:predicate];
+            }
+            if(self.tematika) {
+                NSPredicate *predicate = [NSPredicate predicateWithFormat:@"theme.text = %@", self.tematika];
+                [fetchRequest setPredicate:predicate];
+                
+            }
+            break;
+        case CHRResultSetTypeSearch:
+            [fetchRequest setPredicate:[self createPredicateFromSearchString]];
+            break;
+        case CHRResultSetTypeFavorites:{
+            NSPredicate *predicate = [NSPredicate predicateWithFormat:@"favourite = %@", [NSNumber numberWithBool:YES]];
+            [fetchRequest setPredicate:predicate];
+            }
+            break;
+        default:
+            break;
     }
-    else {
-        if(self.autor) {
-            NSPredicate *predicate = [NSPredicate predicateWithFormat:@"author.name = %@", self.autor];
-            [fetchRequest setPredicate:predicate];
-            }
-        if(self.tematika) {
-            NSPredicate *predicate = [NSPredicate predicateWithFormat:@"theme.text = %@", self.tematika];
-            [fetchRequest setPredicate:predicate];
-
-            }
-        //NSPredicate *predicate = [NSPredicate predicateWithFormat:@"author.name = %@ AND theme.text = %@", self.autor, self.tematika];
-
-        }
     NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"timeStamp" ascending:YES];
     [fetchRequest setSortDescriptors:@[sortDescriptor]];
     
     citati = [[_managedObjectContext executeFetchRequest:fetchRequest error:nil] mutableCopy];
     
+}
+
+-(NSPredicate *)createPredicateFromSearchString {
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"text contains[cd] %@", _searchString];
+    NSPredicate *predicate2 = [NSPredicate predicateWithFormat:@"author.name contains[cd] %@", _searchString];
+    NSPredicate *compoundPredicate = [NSCompoundPredicate orPredicateWithSubpredicates:@[predicate, predicate2]];
+    return compoundPredicate;
 }
 
 
